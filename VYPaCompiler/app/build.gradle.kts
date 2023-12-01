@@ -37,7 +37,7 @@ application {
 tasks {
 
     generateGrammarSource{
-        val pkg = "com.antlr"
+        val pkg = "app.build.generated_src.main"
         arguments = arguments + listOf("-package", pkg) + listOf("-visitor")
     }
 

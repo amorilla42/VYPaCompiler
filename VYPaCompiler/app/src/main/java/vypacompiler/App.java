@@ -1,7 +1,7 @@
 package vypacompiler;
 
-import com.antlr.VYPALexer;
-import com.antlr.VYPAParser;
+import app.build.generated_src.main.VYPALexer;
+import app.build.generated_src.main.VYPAParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
