@@ -1,6 +1,6 @@
-parser grammar parserGrammar;
+parser grammar VYPAParser;
 
-options {tokenVocab = lexerGrammar;}
+options {tokenVocab = VYPALexer;}
 // Global definitions
 
 program: genericDef* EOF;
@@ -13,7 +13,8 @@ funcDef: returnType IDENTIFIER LPAR (VOID | paramDefList)? RPAR codeBlock;
 
 paramDefList: paramDef (COMMA paramDef)*;
 
-paramDef: dataType IDENTIFIER;
+paramDef: dataType IDENTIFIER
+;
 
 // Class Definition
 classDef:
@@ -37,12 +38,12 @@ codeBlock: LBRACE statementList RBRACE;
 statementList: statement*;
 
 statement:
-        varDefStatement
-        |expressionStatement
-        |codeBlock
-        |ifStatement
-        |whileStatement
-        |returnStatement
+        varDefStatement  #DeclareVariable
+        |expressionStatement #DeclareExpression
+        |codeBlock  #Codecosa
+        |ifStatement  #ddddd
+        |whileStatement #sook
+        |returnStatement #locasia
         ;
 
 ifStatement:

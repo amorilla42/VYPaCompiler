@@ -1,4 +1,4 @@
-lexer grammar lexerGrammar;
+lexer grammar VYPALexer;
 
 // Keywords
 
