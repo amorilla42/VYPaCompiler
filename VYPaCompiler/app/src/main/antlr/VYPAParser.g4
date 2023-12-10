@@ -38,12 +38,12 @@ codeBlock: LBRACE statementList RBRACE;
 statementList: statement*;
 
 statement:
-        varDefStatement  #DeclareVariable
-        |expressionStatement #DeclareExpression
-        |codeBlock  #Codecosa
-        |ifStatement  #ddddd
-        |whileStatement #sook
-        |returnStatement #locasia
+        varDefStatement
+        |expressionStatement
+        |codeBlock
+        |ifStatement
+        |whileStatement
+        |returnStatement
         ;
 
 ifStatement:

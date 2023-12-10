@@ -1,7 +1,7 @@
 package vypacompiler;
 
-import app.build.generated_src.main.VYPALexer;
-import app.build.generated_src.main.VYPAParser;
+import parser.VYPALexer;
+import parser.VYPAParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) {
 
 
-        String input = "int main() { return 0; }";
+        String input = "int main() { return 0;             }";
         CharStream stream = CharStreams.fromString(input);
 
         VYPALexer lexer = new VYPALexer(stream);
