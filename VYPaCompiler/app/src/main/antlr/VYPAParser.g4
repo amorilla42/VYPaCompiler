@@ -56,8 +56,8 @@ elseStatement: ELSE statement
 
 whileStatement: WHILE LPAR expr RPAR statement;
 
-returnStatement: RETURN expr SEMICOLON
-                | RETURN SEMICOLON
+returnStatement: RETURN expr SEMICOLON   #ReturnWithType
+                | RETURN SEMICOLON       #ReturnVoid
                 ;
 
 singleDefStatement:
@@ -68,15 +68,15 @@ varDefStatement:
                dataType singleDefStatement (COMMA singleDefStatement)* SEMICOLON;
 
 expressionStatement:
-                sideEffectExpression SEMICOLON
+                sideEffectExpression SEMICOLON      #ExpressionStatementDeclare
                 ;
 
 sideEffectExpression:
-                variable ASSIGN expr
-                |invocation
-                |variable DOT IDENTIFIER LPAR expressionList? RPAR
-                |superConstructor
-                |newObject
+                variable ASSIGN expr                                #SideEffectAssing
+                |invocation                                         #SideEffectInvokeFunction
+                |variable DOT IDENTIFIER LPAR expressionList? RPAR  #SideEffectInvokeMethod
+                |superConstructor                                   #SideEffectNone
+                |newObject                                          #SideEffectNone
                 ;
 
 superConstructor:
@@ -85,19 +85,19 @@ superConstructor:
 // Expressions
 
 variable:
-        superMethod
-        |variableStart (fieldAccess)*
+        superMethod                     #VarNone
+        |variableStart (fieldAccess)*   #VarMultipleAccess
         ;
 
 superMethod:
         SUPER DOT IDENTIFIER LPAR expressionList? RPAR;
 
 variableStart:
-            THIS
-            |LPAR expr RPAR
-            |newObject
-            |invocation
-            |IDENTIFIER
+            THIS                    #VariableThis
+            |LPAR expr RPAR         #VariablePar
+            |newObject              #VariableNone
+            |invocation             #VariableInvokeFunction
+            |IDENTIFIER             #Identifier
             ;
 
 fieldAccess:

@@ -197,13 +197,25 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnStatement(VYPAParser.ReturnStatementContext ctx) { }
+	@Override public void enterReturnWithType(VYPAParser.ReturnWithTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturnStatement(VYPAParser.ReturnStatementContext ctx) { }
+	@Override public void exitReturnWithType(VYPAParser.ReturnWithTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturnVoid(VYPAParser.ReturnVoidContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturnVoid(VYPAParser.ReturnVoidContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -233,25 +245,61 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpressionStatement(VYPAParser.ExpressionStatementContext ctx) { }
+	@Override public void enterExpressionStatementDeclare(VYPAParser.ExpressionStatementDeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpressionStatement(VYPAParser.ExpressionStatementContext ctx) { }
+	@Override public void exitExpressionStatementDeclare(VYPAParser.ExpressionStatementDeclareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSideEffectExpression(VYPAParser.SideEffectExpressionContext ctx) { }
+	@Override public void enterSideEffectAssing(VYPAParser.SideEffectAssingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSideEffectExpression(VYPAParser.SideEffectExpressionContext ctx) { }
+	@Override public void exitSideEffectAssing(VYPAParser.SideEffectAssingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSideEffectInvokeFunction(VYPAParser.SideEffectInvokeFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSideEffectInvokeFunction(VYPAParser.SideEffectInvokeFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSideEffectInvokeMethod(VYPAParser.SideEffectInvokeMethodContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSideEffectInvokeMethod(VYPAParser.SideEffectInvokeMethodContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSideEffectNone(VYPAParser.SideEffectNoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSideEffectNone(VYPAParser.SideEffectNoneContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -269,13 +317,25 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable(VYPAParser.VariableContext ctx) { }
+	@Override public void enterVarNone(VYPAParser.VarNoneContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable(VYPAParser.VariableContext ctx) { }
+	@Override public void exitVarNone(VYPAParser.VarNoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarMultipleAccess(VYPAParser.VarMultipleAccessContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarMultipleAccess(VYPAParser.VarMultipleAccessContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -293,13 +353,61 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariableStart(VYPAParser.VariableStartContext ctx) { }
+	@Override public void enterVariableThis(VYPAParser.VariableThisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariableStart(VYPAParser.VariableStartContext ctx) { }
+	@Override public void exitVariableThis(VYPAParser.VariableThisContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariablePar(VYPAParser.VariableParContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariablePar(VYPAParser.VariableParContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariableNone(VYPAParser.VariableNoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableNone(VYPAParser.VariableNoneContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariableInvokeFunction(VYPAParser.VariableInvokeFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariableInvokeFunction(VYPAParser.VariableInvokeFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIdentifier(VYPAParser.IdentifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIdentifier(VYPAParser.IdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

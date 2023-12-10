@@ -101,11 +101,19 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitWhileStatement(VYPAParser.WhileStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#returnStatement}.
+	 * Visit a parse tree produced by the {@code ReturnWithType}
+	 * labeled alternative in {@link VYPAParser#returnStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnStatement(VYPAParser.ReturnStatementContext ctx);
+	T visitReturnWithType(VYPAParser.ReturnWithTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ReturnVoid}
+	 * labeled alternative in {@link VYPAParser#returnStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnVoid(VYPAParser.ReturnVoidContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#singleDefStatement}.
 	 * @param ctx the parse tree
@@ -119,17 +127,40 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDefStatement(VYPAParser.VarDefStatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expressionStatement}.
+	 * Visit a parse tree produced by the {@code ExpressionStatementDeclare}
+	 * labeled alternative in {@link VYPAParser#expressionStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpressionStatement(VYPAParser.ExpressionStatementContext ctx);
+	T visitExpressionStatementDeclare(VYPAParser.ExpressionStatementDeclareContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#sideEffectExpression}.
+	 * Visit a parse tree produced by the {@code SideEffectAssing}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSideEffectExpression(VYPAParser.SideEffectExpressionContext ctx);
+	T visitSideEffectAssing(VYPAParser.SideEffectAssingContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SideEffectInvokeFunction}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSideEffectInvokeFunction(VYPAParser.SideEffectInvokeFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SideEffectInvokeMethod}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSideEffectInvokeMethod(VYPAParser.SideEffectInvokeMethodContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SideEffectNone}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSideEffectNone(VYPAParser.SideEffectNoneContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#superConstructor}.
 	 * @param ctx the parse tree
@@ -137,11 +168,19 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSuperConstructor(VYPAParser.SuperConstructorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#variable}.
+	 * Visit a parse tree produced by the {@code VarNone}
+	 * labeled alternative in {@link VYPAParser#variable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariable(VYPAParser.VariableContext ctx);
+	T visitVarNone(VYPAParser.VarNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VarMultipleAccess}
+	 * labeled alternative in {@link VYPAParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarMultipleAccess(VYPAParser.VarMultipleAccessContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#superMethod}.
 	 * @param ctx the parse tree
@@ -149,11 +188,40 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSuperMethod(VYPAParser.SuperMethodContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#variableStart}.
+	 * Visit a parse tree produced by the {@code VariableThis}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariableStart(VYPAParser.VariableStartContext ctx);
+	T visitVariableThis(VYPAParser.VariableThisContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VariablePar}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariablePar(VYPAParser.VariableParContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VariableNone}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableNone(VYPAParser.VariableNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code VariableInvokeFunction}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableInvokeFunction(VYPAParser.VariableInvokeFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Identifier}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(VYPAParser.IdentifierContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#fieldAccess}.
 	 * @param ctx the parse tree

@@ -158,15 +158,29 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitWhileStatement(VYPAParser.WhileStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#returnStatement}.
+	 * Enter a parse tree produced by the {@code ReturnWithType}
+	 * labeled alternative in {@link VYPAParser#returnStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterReturnStatement(VYPAParser.ReturnStatementContext ctx);
+	void enterReturnWithType(VYPAParser.ReturnWithTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#returnStatement}.
+	 * Exit a parse tree produced by the {@code ReturnWithType}
+	 * labeled alternative in {@link VYPAParser#returnStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitReturnStatement(VYPAParser.ReturnStatementContext ctx);
+	void exitReturnWithType(VYPAParser.ReturnWithTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ReturnVoid}
+	 * labeled alternative in {@link VYPAParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnVoid(VYPAParser.ReturnVoidContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ReturnVoid}
+	 * labeled alternative in {@link VYPAParser#returnStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnVoid(VYPAParser.ReturnVoidContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#singleDefStatement}.
 	 * @param ctx the parse tree
@@ -188,25 +202,65 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitVarDefStatement(VYPAParser.VarDefStatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expressionStatement}.
+	 * Enter a parse tree produced by the {@code ExpressionStatementDeclare}
+	 * labeled alternative in {@link VYPAParser#expressionStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpressionStatement(VYPAParser.ExpressionStatementContext ctx);
+	void enterExpressionStatementDeclare(VYPAParser.ExpressionStatementDeclareContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expressionStatement}.
+	 * Exit a parse tree produced by the {@code ExpressionStatementDeclare}
+	 * labeled alternative in {@link VYPAParser#expressionStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpressionStatement(VYPAParser.ExpressionStatementContext ctx);
+	void exitExpressionStatementDeclare(VYPAParser.ExpressionStatementDeclareContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#sideEffectExpression}.
+	 * Enter a parse tree produced by the {@code SideEffectAssing}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterSideEffectExpression(VYPAParser.SideEffectExpressionContext ctx);
+	void enterSideEffectAssing(VYPAParser.SideEffectAssingContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#sideEffectExpression}.
+	 * Exit a parse tree produced by the {@code SideEffectAssing}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitSideEffectExpression(VYPAParser.SideEffectExpressionContext ctx);
+	void exitSideEffectAssing(VYPAParser.SideEffectAssingContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SideEffectInvokeFunction}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSideEffectInvokeFunction(VYPAParser.SideEffectInvokeFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SideEffectInvokeFunction}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSideEffectInvokeFunction(VYPAParser.SideEffectInvokeFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SideEffectInvokeMethod}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSideEffectInvokeMethod(VYPAParser.SideEffectInvokeMethodContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SideEffectInvokeMethod}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSideEffectInvokeMethod(VYPAParser.SideEffectInvokeMethodContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SideEffectNone}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSideEffectNone(VYPAParser.SideEffectNoneContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SideEffectNone}
+	 * labeled alternative in {@link VYPAParser#sideEffectExpression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSideEffectNone(VYPAParser.SideEffectNoneContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#superConstructor}.
 	 * @param ctx the parse tree
@@ -218,15 +272,29 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitSuperConstructor(VYPAParser.SuperConstructorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#variable}.
+	 * Enter a parse tree produced by the {@code VarNone}
+	 * labeled alternative in {@link VYPAParser#variable}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariable(VYPAParser.VariableContext ctx);
+	void enterVarNone(VYPAParser.VarNoneContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#variable}.
+	 * Exit a parse tree produced by the {@code VarNone}
+	 * labeled alternative in {@link VYPAParser#variable}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariable(VYPAParser.VariableContext ctx);
+	void exitVarNone(VYPAParser.VarNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VarMultipleAccess}
+	 * labeled alternative in {@link VYPAParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarMultipleAccess(VYPAParser.VarMultipleAccessContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VarMultipleAccess}
+	 * labeled alternative in {@link VYPAParser#variable}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarMultipleAccess(VYPAParser.VarMultipleAccessContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#superMethod}.
 	 * @param ctx the parse tree
@@ -238,15 +306,65 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitSuperMethod(VYPAParser.SuperMethodContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#variableStart}.
+	 * Enter a parse tree produced by the {@code VariableThis}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariableStart(VYPAParser.VariableStartContext ctx);
+	void enterVariableThis(VYPAParser.VariableThisContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#variableStart}.
+	 * Exit a parse tree produced by the {@code VariableThis}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariableStart(VYPAParser.VariableStartContext ctx);
+	void exitVariableThis(VYPAParser.VariableThisContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VariablePar}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariablePar(VYPAParser.VariableParContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VariablePar}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariablePar(VYPAParser.VariableParContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VariableNone}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableNone(VYPAParser.VariableNoneContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VariableNone}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableNone(VYPAParser.VariableNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code VariableInvokeFunction}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void enterVariableInvokeFunction(VYPAParser.VariableInvokeFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code VariableInvokeFunction}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void exitVariableInvokeFunction(VYPAParser.VariableInvokeFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Identifier}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(VYPAParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Identifier}
+	 * labeled alternative in {@link VYPAParser#variableStart}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(VYPAParser.IdentifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#fieldAccess}.
 	 * @param ctx the parse tree

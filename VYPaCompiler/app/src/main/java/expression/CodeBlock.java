@@ -4,12 +4,12 @@ import tables.SymbolTable;
 
 import java.util.List;
 
-public class Statements extends AST {
+public class CodeBlock extends AST{
 
     private List<AST> statements;
 
-    public Statements(List<AST> st){
-        this.statements=st;
+    public CodeBlock(List<AST> statements){
+        this.statements = statements;
     }
 
     public List<AST> getStatements() {
