@@ -247,47 +247,110 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNewObject(VYPAParser.NewObjectContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expUnary}.
+	 * Visit a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpUnary(VYPAParser.ExpUnaryContext ctx);
+	T visitNot(VYPAParser.NotContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expMul}.
+	 * Visit a parse tree produced by the {@code Cast}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpMul(VYPAParser.ExpMulContext ctx);
+	T visitCast(VYPAParser.CastContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expAdd}.
+	 * Visit a parse tree produced by the {@code UnaNone}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpAdd(VYPAParser.ExpAddContext ctx);
+	T visitUnaNone(VYPAParser.UnaNoneContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expRel}.
+	 * Visit a parse tree produced by the {@code Mult}
+	 * labeled alternative in {@link VYPAParser#expMul}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpRel(VYPAParser.ExpRelContext ctx);
+	T visitMult(VYPAParser.MultContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expComparation}.
+	 * Visit a parse tree produced by the {@code MultNone}
+	 * labeled alternative in {@link VYPAParser#expMul}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpComparation(VYPAParser.ExpComparationContext ctx);
+	T visitMultNone(VYPAParser.MultNoneContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expAnd}.
+	 * Visit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link VYPAParser#expAdd}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpAnd(VYPAParser.ExpAndContext ctx);
+	T visitAdd(VYPAParser.AddContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#expOr}.
+	 * Visit a parse tree produced by the {@code AddNone}
+	 * labeled alternative in {@link VYPAParser#expAdd}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpOr(VYPAParser.ExpOrContext ctx);
+	T visitAddNone(VYPAParser.AddNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code RelNone}
+	 * labeled alternative in {@link VYPAParser#expRel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelNone(VYPAParser.RelNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Rel}
+	 * labeled alternative in {@link VYPAParser#expRel}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRel(VYPAParser.RelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Compare}
+	 * labeled alternative in {@link VYPAParser#expComparation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompare(VYPAParser.CompareContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CompareNone}
+	 * labeled alternative in {@link VYPAParser#expComparation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCompareNone(VYPAParser.CompareNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code And}
+	 * labeled alternative in {@link VYPAParser#expAnd}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAnd(VYPAParser.AndContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AndNone}
+	 * labeled alternative in {@link VYPAParser#expAnd}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAndNone(VYPAParser.AndNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OrNone}
+	 * labeled alternative in {@link VYPAParser#expOr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrNone(VYPAParser.OrNoneContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link VYPAParser#expOr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOr(VYPAParser.OrContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#expr}.
 	 * @param ctx the parse tree

@@ -460,11 +460,11 @@ public class VYPAParser extends Parser {
 	public static class ClassDefContext extends ParserRuleContext {
 		public TerminalNode CLASS() { return getToken(VYPAParser.CLASS, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(VYPAParser.IDENTIFIER, 0); }
-		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
+		public TerminalNode LBRACE() { return getToken(VYPAParser.LBRACE, 0); }
 		public ClassBodyContext classBody() {
 			return getRuleContext(ClassBodyContext.class,0);
 		}
-		public TerminalNode RPAR() { return getToken(VYPAParser.RPAR, 0); }
+		public TerminalNode RBRACE() { return getToken(VYPAParser.RBRACE, 0); }
 		public ClassExtendsContext classExtends() {
 			return getRuleContext(ClassExtendsContext.class,0);
 		}
@@ -509,11 +509,11 @@ public class VYPAParser extends Parser {
 			}
 
 			setState(121);
-			match(LPAR);
+			match(LBRACE);
 			setState(122);
 			classBody();
 			setState(123);
-			match(RPAR);
+			match(RBRACE);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2312,36 +2312,82 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpUnaryContext extends ParserRuleContext {
-		public TerminalNode NOT() { return getToken(VYPAParser.NOT, 0); }
-		public ExpUnaryContext expUnary() {
-			return getRuleContext(ExpUnaryContext.class,0);
+		public ExpUnaryContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
+		@Override public int getRuleIndex() { return RULE_expUnary; }
+	 
+		public ExpUnaryContext() { }
+		public void copyFrom(ExpUnaryContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class CastContext extends ExpUnaryContext {
 		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
 		public DataTypeContext dataType() {
 			return getRuleContext(DataTypeContext.class,0);
 		}
 		public TerminalNode RPAR() { return getToken(VYPAParser.RPAR, 0); }
+		public ExpUnaryContext expUnary() {
+			return getRuleContext(ExpUnaryContext.class,0);
+		}
+		public CastContext(ExpUnaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterCast(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitCast(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitCast(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NotContext extends ExpUnaryContext {
+		public TerminalNode NOT() { return getToken(VYPAParser.NOT, 0); }
+		public ExpUnaryContext expUnary() {
+			return getRuleContext(ExpUnaryContext.class,0);
+		}
+		public NotContext(ExpUnaryContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterNot(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitNot(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitNot(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class UnaNoneContext extends ExpUnaryContext {
 		public LiteralContext literal() {
 			return getRuleContext(LiteralContext.class,0);
 		}
 		public VariableContext variable() {
 			return getRuleContext(VariableContext.class,0);
 		}
-		public ExpUnaryContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expUnary; }
+		public UnaNoneContext(ExpUnaryContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpUnary(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterUnaNone(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpUnary(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitUnaNone(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpUnary(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitUnaNone(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2354,6 +2400,7 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,25,_ctx) ) {
 			case 1:
+				_localctx = new NotContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(297);
@@ -2363,6 +2410,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new CastContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(299);
@@ -2376,6 +2424,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new UnaNoneContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(304);
@@ -2383,6 +2432,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new UnaNoneContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(305);
@@ -2404,30 +2454,59 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpMulContext extends ParserRuleContext {
-		public Token op;
-		public ExpUnaryContext expUnary() {
-			return getRuleContext(ExpUnaryContext.class,0);
-		}
-		public ExpMulContext expMul() {
-			return getRuleContext(ExpMulContext.class,0);
-		}
-		public TerminalNode MUL() { return getToken(VYPAParser.MUL, 0); }
-		public TerminalNode DIV() { return getToken(VYPAParser.DIV, 0); }
 		public ExpMulContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expMul; }
+	 
+		public ExpMulContext() { }
+		public void copyFrom(ExpMulContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class MultContext extends ExpMulContext {
+		public Token op;
+		public ExpMulContext expMul() {
+			return getRuleContext(ExpMulContext.class,0);
+		}
+		public ExpUnaryContext expUnary() {
+			return getRuleContext(ExpUnaryContext.class,0);
+		}
+		public TerminalNode MUL() { return getToken(VYPAParser.MUL, 0); }
+		public TerminalNode DIV() { return getToken(VYPAParser.DIV, 0); }
+		public MultContext(ExpMulContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpMul(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterMult(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpMul(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitMult(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpMul(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitMult(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class MultNoneContext extends ExpMulContext {
+		public ExpUnaryContext expUnary() {
+			return getRuleContext(ExpUnaryContext.class,0);
+		}
+		public MultNoneContext(ExpMulContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterMultNone(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitMultNone(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitMultNone(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2449,6 +2528,10 @@ public class VYPAParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new MultNoneContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(309);
 			expUnary();
 			}
@@ -2462,15 +2545,15 @@ public class VYPAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExpMulContext(_parentctx, _parentState);
+					_localctx = new MultContext(new ExpMulContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expMul);
 					setState(311);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(312);
-					((ExpMulContext)_localctx).op = _input.LT(1);
+					((MultContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==MUL || _la==DIV) ) {
-						((ExpMulContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						((MultContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
 						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -2501,30 +2584,59 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpAddContext extends ParserRuleContext {
-		public Token op;
-		public ExpMulContext expMul() {
-			return getRuleContext(ExpMulContext.class,0);
-		}
-		public ExpAddContext expAdd() {
-			return getRuleContext(ExpAddContext.class,0);
-		}
-		public TerminalNode ADD() { return getToken(VYPAParser.ADD, 0); }
-		public TerminalNode SUB() { return getToken(VYPAParser.SUB, 0); }
 		public ExpAddContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expAdd; }
+	 
+		public ExpAddContext() { }
+		public void copyFrom(ExpAddContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class AddContext extends ExpAddContext {
+		public Token op;
+		public ExpAddContext expAdd() {
+			return getRuleContext(ExpAddContext.class,0);
+		}
+		public ExpMulContext expMul() {
+			return getRuleContext(ExpMulContext.class,0);
+		}
+		public TerminalNode ADD() { return getToken(VYPAParser.ADD, 0); }
+		public TerminalNode SUB() { return getToken(VYPAParser.SUB, 0); }
+		public AddContext(ExpAddContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpAdd(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterAdd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpAdd(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitAdd(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpAdd(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitAdd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class AddNoneContext extends ExpAddContext {
+		public ExpMulContext expMul() {
+			return getRuleContext(ExpMulContext.class,0);
+		}
+		public AddNoneContext(ExpAddContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterAddNone(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitAddNone(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitAddNone(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2546,6 +2658,10 @@ public class VYPAParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new AddNoneContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(320);
 			expMul(0);
 			}
@@ -2559,15 +2675,15 @@ public class VYPAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExpAddContext(_parentctx, _parentState);
+					_localctx = new AddContext(new ExpAddContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expAdd);
 					setState(322);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(323);
-					((ExpAddContext)_localctx).op = _input.LT(1);
+					((AddContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==ADD || _la==SUB) ) {
-						((ExpAddContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						((AddContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
 						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -2598,6 +2714,18 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpRelContext extends ParserRuleContext {
+		public ExpRelContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expRel; }
+	 
+		public ExpRelContext() { }
+		public void copyFrom(ExpRelContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class RelContext extends ExpRelContext {
 		public Token op;
 		public List<ExpAddContext> expAdd() {
 			return getRuleContexts(ExpAddContext.class);
@@ -2609,21 +2737,38 @@ public class VYPAParser extends Parser {
 		public TerminalNode LT() { return getToken(VYPAParser.LT, 0); }
 		public TerminalNode LE() { return getToken(VYPAParser.LE, 0); }
 		public TerminalNode GE() { return getToken(VYPAParser.GE, 0); }
-		public ExpRelContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expRel; }
+		public RelContext(ExpRelContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpRel(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterRel(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpRel(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitRel(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpRel(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitRel(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class RelNoneContext extends ExpRelContext {
+		public ExpAddContext expAdd() {
+			return getRuleContext(ExpAddContext.class,0);
+		}
+		public RelNoneContext(ExpRelContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterRelNone(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitRelNone(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitRelNone(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2637,6 +2782,7 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 			case 1:
+				_localctx = new RelNoneContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(330);
@@ -2644,15 +2790,16 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new RelContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(331);
 				expAdd(0);
 				setState(332);
-				((ExpRelContext)_localctx).op = _input.LT(1);
+				((RelContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 103809024L) != 0)) ) {
-					((ExpRelContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+					((RelContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 				}
 				else {
 					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -2678,30 +2825,59 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpComparationContext extends ParserRuleContext {
-		public Token op;
-		public ExpRelContext expRel() {
-			return getRuleContext(ExpRelContext.class,0);
-		}
-		public ExpComparationContext expComparation() {
-			return getRuleContext(ExpComparationContext.class,0);
-		}
-		public TerminalNode EQ() { return getToken(VYPAParser.EQ, 0); }
-		public TerminalNode NEQ() { return getToken(VYPAParser.NEQ, 0); }
 		public ExpComparationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expComparation; }
+	 
+		public ExpComparationContext() { }
+		public void copyFrom(ExpComparationContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class CompareContext extends ExpComparationContext {
+		public Token op;
+		public ExpComparationContext expComparation() {
+			return getRuleContext(ExpComparationContext.class,0);
+		}
+		public ExpRelContext expRel() {
+			return getRuleContext(ExpRelContext.class,0);
+		}
+		public TerminalNode EQ() { return getToken(VYPAParser.EQ, 0); }
+		public TerminalNode NEQ() { return getToken(VYPAParser.NEQ, 0); }
+		public CompareContext(ExpComparationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpComparation(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterCompare(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpComparation(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitCompare(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpComparation(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitCompare(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class CompareNoneContext extends ExpComparationContext {
+		public ExpRelContext expRel() {
+			return getRuleContext(ExpRelContext.class,0);
+		}
+		public CompareNoneContext(ExpComparationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterCompareNone(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitCompareNone(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitCompareNone(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2723,6 +2899,10 @@ public class VYPAParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new CompareNoneContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(338);
 			expRel();
 			}
@@ -2736,15 +2916,15 @@ public class VYPAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExpComparationContext(_parentctx, _parentState);
+					_localctx = new CompareContext(new ExpComparationContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expComparation);
 					setState(340);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
 					setState(341);
-					((ExpComparationContext)_localctx).op = _input.LT(1);
+					((CompareContext)_localctx).op = _input.LT(1);
 					_la = _input.LA(1);
 					if ( !(_la==EQ || _la==NEQ) ) {
-						((ExpComparationContext)_localctx).op = (Token)_errHandler.recoverInline(this);
+						((CompareContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 					}
 					else {
 						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
@@ -2775,28 +2955,57 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpAndContext extends ParserRuleContext {
-		public ExpComparationContext expComparation() {
-			return getRuleContext(ExpComparationContext.class,0);
-		}
-		public ExpAndContext expAnd() {
-			return getRuleContext(ExpAndContext.class,0);
-		}
-		public TerminalNode AND() { return getToken(VYPAParser.AND, 0); }
 		public ExpAndContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expAnd; }
+	 
+		public ExpAndContext() { }
+		public void copyFrom(ExpAndContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class AndContext extends ExpAndContext {
+		public ExpAndContext expAnd() {
+			return getRuleContext(ExpAndContext.class,0);
+		}
+		public TerminalNode AND() { return getToken(VYPAParser.AND, 0); }
+		public ExpComparationContext expComparation() {
+			return getRuleContext(ExpComparationContext.class,0);
+		}
+		public AndContext(ExpAndContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpAnd(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterAnd(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpAnd(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitAnd(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpAnd(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitAnd(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class AndNoneContext extends ExpAndContext {
+		public ExpComparationContext expComparation() {
+			return getRuleContext(ExpComparationContext.class,0);
+		}
+		public AndNoneContext(ExpAndContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterAndNone(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitAndNone(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitAndNone(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2817,6 +3026,10 @@ public class VYPAParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new AndNoneContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(349);
 			expComparation(0);
 			}
@@ -2830,7 +3043,7 @@ public class VYPAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExpAndContext(_parentctx, _parentState);
+					_localctx = new AndContext(new ExpAndContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expAnd);
 					setState(351);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -2860,28 +3073,57 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExpOrContext extends ParserRuleContext {
-		public ExpAndContext expAnd() {
-			return getRuleContext(ExpAndContext.class,0);
-		}
-		public ExpOrContext expOr() {
-			return getRuleContext(ExpOrContext.class,0);
-		}
-		public TerminalNode OR() { return getToken(VYPAParser.OR, 0); }
 		public ExpOrContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expOr; }
+	 
+		public ExpOrContext() { }
+		public void copyFrom(ExpOrContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OrNoneContext extends ExpOrContext {
+		public ExpAndContext expAnd() {
+			return getRuleContext(ExpAndContext.class,0);
+		}
+		public OrNoneContext(ExpOrContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterExpOr(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterOrNone(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitExpOr(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitOrNone(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitExpOr(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitOrNone(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class OrContext extends ExpOrContext {
+		public ExpOrContext expOr() {
+			return getRuleContext(ExpOrContext.class,0);
+		}
+		public TerminalNode OR() { return getToken(VYPAParser.OR, 0); }
+		public ExpAndContext expAnd() {
+			return getRuleContext(ExpAndContext.class,0);
+		}
+		public OrContext(ExpOrContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterOr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitOr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitOr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2902,6 +3144,10 @@ public class VYPAParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			{
+			_localctx = new OrNoneContext(_localctx);
+			_ctx = _localctx;
+			_prevctx = _localctx;
+
 			setState(360);
 			expAnd(0);
 			}
@@ -2915,7 +3161,7 @@ public class VYPAParser extends Parser {
 					_prevctx = _localctx;
 					{
 					{
-					_localctx = new ExpOrContext(_parentctx, _parentState);
+					_localctx = new OrContext(new ExpOrContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expOr);
 					setState(362);
 					if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -3443,49 +3689,49 @@ public class VYPAParser extends Parser {
 		"qr\u0003N\'\u0000rs\u0005\'\u0000\u0000s\t\u0001\u0000\u0000\u0000tu\u0005"+
 		"\u0001\u0000\u0000uw\u0005\'\u0000\u0000vx\u0003\f\u0006\u0000wv\u0001"+
 		"\u0000\u0000\u0000wx\u0001\u0000\u0000\u0000xy\u0001\u0000\u0000\u0000"+
-		"yz\u0005\f\u0000\u0000z{\u0003\u000e\u0007\u0000{|\u0005\r\u0000\u0000"+
-		"|\u000b\u0001\u0000\u0000\u0000}~\u0005\u0017\u0000\u0000~\u007f\u0005"+
-		"\'\u0000\u0000\u007f\r\u0001\u0000\u0000\u0000\u0080\u0083\u0003\"\u0011"+
-		"\u0000\u0081\u0083\u0003\u0010\b\u0000\u0082\u0080\u0001\u0000\u0000\u0000"+
-		"\u0082\u0081\u0001\u0000\u0000\u0000\u0083\u0086\u0001\u0000\u0000\u0000"+
-		"\u0084\u0082\u0001\u0000\u0000\u0000\u0084\u0085\u0001\u0000\u0000\u0000"+
-		"\u0085\u000f\u0001\u0000\u0000\u0000\u0086\u0084\u0001\u0000\u0000\u0000"+
-		"\u0087\u0088\u0003P(\u0000\u0088\u0089\u0005\'\u0000\u0000\u0089\u008c"+
-		"\u0005\f\u0000\u0000\u008a\u008d\u0005\t\u0000\u0000\u008b\u008d\u0003"+
-		"\u0006\u0003\u0000\u008c\u008a\u0001\u0000\u0000\u0000\u008c\u008b\u0001"+
-		"\u0000\u0000\u0000\u008c\u008d\u0001\u0000\u0000\u0000\u008d\u008e\u0001"+
-		"\u0000\u0000\u0000\u008e\u008f\u0005\r\u0000\u0000\u008f\u0090\u0003\u0012"+
-		"\t\u0000\u0090\u0011\u0001\u0000\u0000\u0000\u0091\u0092\u0005\u000e\u0000"+
-		"\u0000\u0092\u0093\u0003\u0014\n\u0000\u0093\u0094\u0005\u000f\u0000\u0000"+
-		"\u0094\u0013\u0001\u0000\u0000\u0000\u0095\u0097\u0003\u0016\u000b\u0000"+
-		"\u0096\u0095\u0001\u0000\u0000\u0000\u0097\u009a\u0001\u0000\u0000\u0000"+
-		"\u0098\u0096\u0001\u0000\u0000\u0000\u0098\u0099\u0001\u0000\u0000\u0000"+
-		"\u0099\u0015\u0001\u0000\u0000\u0000\u009a\u0098\u0001\u0000\u0000\u0000"+
-		"\u009b\u00a2\u0003\"\u0011\u0000\u009c\u00a2\u0003$\u0012\u0000\u009d"+
-		"\u00a2\u0003\u0012\t\u0000\u009e\u00a2\u0003\u0018\f\u0000\u009f\u00a2"+
-		"\u0003\u001c\u000e\u0000\u00a0\u00a2\u0003\u001e\u000f\u0000\u00a1\u009b"+
-		"\u0001\u0000\u0000\u0000\u00a1\u009c\u0001\u0000\u0000\u0000\u00a1\u009d"+
-		"\u0001\u0000\u0000\u0000\u00a1\u009e\u0001\u0000\u0000\u0000\u00a1\u009f"+
-		"\u0001\u0000\u0000\u0000\u00a1\u00a0\u0001\u0000\u0000\u0000\u00a2\u0017"+
-		"\u0001\u0000\u0000\u0000\u00a3\u00a4\u0005\u0003\u0000\u0000\u00a4\u00a5"+
-		"\u0005\f\u0000\u0000\u00a5\u00a6\u0003F#\u0000\u00a6\u00a7\u0005\r\u0000"+
-		"\u0000\u00a7\u00a8\u0003\u0016\u000b\u0000\u00a8\u00a9\u0003\u001a\r\u0000"+
-		"\u00a9\u00b1\u0001\u0000\u0000\u0000\u00aa\u00ab\u0005\u0003\u0000\u0000"+
-		"\u00ab\u00ac\u0005\f\u0000\u0000\u00ac\u00ad\u0003F#\u0000\u00ad\u00ae"+
-		"\u0005\r\u0000\u0000\u00ae\u00af\u0003\u0016\u000b\u0000\u00af\u00b1\u0001"+
-		"\u0000\u0000\u0000\u00b0\u00a3\u0001\u0000\u0000\u0000\u00b0\u00aa\u0001"+
-		"\u0000\u0000\u0000\u00b1\u0019\u0001\u0000\u0000\u0000\u00b2\u00b3\u0005"+
-		"\u0002\u0000\u0000\u00b3\u00b4\u0003\u0016\u000b\u0000\u00b4\u001b\u0001"+
-		"\u0000\u0000\u0000\u00b5\u00b6\u0005\n\u0000\u0000\u00b6\u00b7\u0005\f"+
-		"\u0000\u0000\u00b7\u00b8\u0003F#\u0000\u00b8\u00b9\u0005\r\u0000\u0000"+
-		"\u00b9\u00ba\u0003\u0016\u000b\u0000\u00ba\u001d\u0001\u0000\u0000\u0000"+
-		"\u00bb\u00bc\u0005\u0005\u0000\u0000\u00bc\u00bd\u0003F#\u0000\u00bd\u00be"+
-		"\u0005\u0010\u0000\u0000\u00be\u00c2\u0001\u0000\u0000\u0000\u00bf\u00c0"+
-		"\u0005\u0005\u0000\u0000\u00c0\u00c2\u0005\u0010\u0000\u0000\u00c1\u00bb"+
-		"\u0001\u0000\u0000\u0000\u00c1\u00bf\u0001\u0000\u0000\u0000\u00c2\u001f"+
-		"\u0001\u0000\u0000\u0000\u00c3\u00c8\u0005\'\u0000\u0000\u00c4\u00c5\u0005"+
-		"\'\u0000\u0000\u00c5\u00c6\u0005\u0013\u0000\u0000\u00c6\u00c8\u0003F"+
-		"#\u0000\u00c7\u00c3\u0001\u0000\u0000\u0000\u00c7\u00c4\u0001\u0000\u0000"+
+		"yz\u0005\u000e\u0000\u0000z{\u0003\u000e\u0007\u0000{|\u0005\u000f\u0000"+
+		"\u0000|\u000b\u0001\u0000\u0000\u0000}~\u0005\u0017\u0000\u0000~\u007f"+
+		"\u0005\'\u0000\u0000\u007f\r\u0001\u0000\u0000\u0000\u0080\u0083\u0003"+
+		"\"\u0011\u0000\u0081\u0083\u0003\u0010\b\u0000\u0082\u0080\u0001\u0000"+
+		"\u0000\u0000\u0082\u0081\u0001\u0000\u0000\u0000\u0083\u0086\u0001\u0000"+
+		"\u0000\u0000\u0084\u0082\u0001\u0000\u0000\u0000\u0084\u0085\u0001\u0000"+
+		"\u0000\u0000\u0085\u000f\u0001\u0000\u0000\u0000\u0086\u0084\u0001\u0000"+
+		"\u0000\u0000\u0087\u0088\u0003P(\u0000\u0088\u0089\u0005\'\u0000\u0000"+
+		"\u0089\u008c\u0005\f\u0000\u0000\u008a\u008d\u0005\t\u0000\u0000\u008b"+
+		"\u008d\u0003\u0006\u0003\u0000\u008c\u008a\u0001\u0000\u0000\u0000\u008c"+
+		"\u008b\u0001\u0000\u0000\u0000\u008c\u008d\u0001\u0000\u0000\u0000\u008d"+
+		"\u008e\u0001\u0000\u0000\u0000\u008e\u008f\u0005\r\u0000\u0000\u008f\u0090"+
+		"\u0003\u0012\t\u0000\u0090\u0011\u0001\u0000\u0000\u0000\u0091\u0092\u0005"+
+		"\u000e\u0000\u0000\u0092\u0093\u0003\u0014\n\u0000\u0093\u0094\u0005\u000f"+
+		"\u0000\u0000\u0094\u0013\u0001\u0000\u0000\u0000\u0095\u0097\u0003\u0016"+
+		"\u000b\u0000\u0096\u0095\u0001\u0000\u0000\u0000\u0097\u009a\u0001\u0000"+
+		"\u0000\u0000\u0098\u0096\u0001\u0000\u0000\u0000\u0098\u0099\u0001\u0000"+
+		"\u0000\u0000\u0099\u0015\u0001\u0000\u0000\u0000\u009a\u0098\u0001\u0000"+
+		"\u0000\u0000\u009b\u00a2\u0003\"\u0011\u0000\u009c\u00a2\u0003$\u0012"+
+		"\u0000\u009d\u00a2\u0003\u0012\t\u0000\u009e\u00a2\u0003\u0018\f\u0000"+
+		"\u009f\u00a2\u0003\u001c\u000e\u0000\u00a0\u00a2\u0003\u001e\u000f\u0000"+
+		"\u00a1\u009b\u0001\u0000\u0000\u0000\u00a1\u009c\u0001\u0000\u0000\u0000"+
+		"\u00a1\u009d\u0001\u0000\u0000\u0000\u00a1\u009e\u0001\u0000\u0000\u0000"+
+		"\u00a1\u009f\u0001\u0000\u0000\u0000\u00a1\u00a0\u0001\u0000\u0000\u0000"+
+		"\u00a2\u0017\u0001\u0000\u0000\u0000\u00a3\u00a4\u0005\u0003\u0000\u0000"+
+		"\u00a4\u00a5\u0005\f\u0000\u0000\u00a5\u00a6\u0003F#\u0000\u00a6\u00a7"+
+		"\u0005\r\u0000\u0000\u00a7\u00a8\u0003\u0016\u000b\u0000\u00a8\u00a9\u0003"+
+		"\u001a\r\u0000\u00a9\u00b1\u0001\u0000\u0000\u0000\u00aa\u00ab\u0005\u0003"+
+		"\u0000\u0000\u00ab\u00ac\u0005\f\u0000\u0000\u00ac\u00ad\u0003F#\u0000"+
+		"\u00ad\u00ae\u0005\r\u0000\u0000\u00ae\u00af\u0003\u0016\u000b\u0000\u00af"+
+		"\u00b1\u0001\u0000\u0000\u0000\u00b0\u00a3\u0001\u0000\u0000\u0000\u00b0"+
+		"\u00aa\u0001\u0000\u0000\u0000\u00b1\u0019\u0001\u0000\u0000\u0000\u00b2"+
+		"\u00b3\u0005\u0002\u0000\u0000\u00b3\u00b4\u0003\u0016\u000b\u0000\u00b4"+
+		"\u001b\u0001\u0000\u0000\u0000\u00b5\u00b6\u0005\n\u0000\u0000\u00b6\u00b7"+
+		"\u0005\f\u0000\u0000\u00b7\u00b8\u0003F#\u0000\u00b8\u00b9\u0005\r\u0000"+
+		"\u0000\u00b9\u00ba\u0003\u0016\u000b\u0000\u00ba\u001d\u0001\u0000\u0000"+
+		"\u0000\u00bb\u00bc\u0005\u0005\u0000\u0000\u00bc\u00bd\u0003F#\u0000\u00bd"+
+		"\u00be\u0005\u0010\u0000\u0000\u00be\u00c2\u0001\u0000\u0000\u0000\u00bf"+
+		"\u00c0\u0005\u0005\u0000\u0000\u00c0\u00c2\u0005\u0010\u0000\u0000\u00c1"+
+		"\u00bb\u0001\u0000\u0000\u0000\u00c1\u00bf\u0001\u0000\u0000\u0000\u00c2"+
+		"\u001f\u0001\u0000\u0000\u0000\u00c3\u00c8\u0005\'\u0000\u0000\u00c4\u00c5"+
+		"\u0005\'\u0000\u0000\u00c5\u00c6\u0005\u0013\u0000\u0000\u00c6\u00c8\u0003"+
+		"F#\u0000\u00c7\u00c3\u0001\u0000\u0000\u0000\u00c7\u00c4\u0001\u0000\u0000"+
 		"\u0000\u00c8!\u0001\u0000\u0000\u0000\u00c9\u00ca\u0003N\'\u0000\u00ca"+
 		"\u00cf\u0003 \u0010\u0000\u00cb\u00cc\u0005\u0011\u0000\u0000\u00cc\u00ce"+
 		"\u0003 \u0010\u0000\u00cd\u00cb\u0001\u0000\u0000\u0000\u00ce\u00d1\u0001"+

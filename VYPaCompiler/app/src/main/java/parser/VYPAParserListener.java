@@ -406,75 +406,185 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitNewObject(VYPAParser.NewObjectContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expUnary}.
+	 * Enter a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpUnary(VYPAParser.ExpUnaryContext ctx);
+	void enterNot(VYPAParser.NotContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expUnary}.
+	 * Exit a parse tree produced by the {@code Not}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpUnary(VYPAParser.ExpUnaryContext ctx);
+	void exitNot(VYPAParser.NotContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expMul}.
+	 * Enter a parse tree produced by the {@code Cast}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpMul(VYPAParser.ExpMulContext ctx);
+	void enterCast(VYPAParser.CastContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expMul}.
+	 * Exit a parse tree produced by the {@code Cast}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpMul(VYPAParser.ExpMulContext ctx);
+	void exitCast(VYPAParser.CastContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expAdd}.
+	 * Enter a parse tree produced by the {@code UnaNone}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpAdd(VYPAParser.ExpAddContext ctx);
+	void enterUnaNone(VYPAParser.UnaNoneContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expAdd}.
+	 * Exit a parse tree produced by the {@code UnaNone}
+	 * labeled alternative in {@link VYPAParser#expUnary}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpAdd(VYPAParser.ExpAddContext ctx);
+	void exitUnaNone(VYPAParser.UnaNoneContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expRel}.
+	 * Enter a parse tree produced by the {@code Mult}
+	 * labeled alternative in {@link VYPAParser#expMul}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpRel(VYPAParser.ExpRelContext ctx);
+	void enterMult(VYPAParser.MultContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expRel}.
+	 * Exit a parse tree produced by the {@code Mult}
+	 * labeled alternative in {@link VYPAParser#expMul}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpRel(VYPAParser.ExpRelContext ctx);
+	void exitMult(VYPAParser.MultContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expComparation}.
+	 * Enter a parse tree produced by the {@code MultNone}
+	 * labeled alternative in {@link VYPAParser#expMul}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpComparation(VYPAParser.ExpComparationContext ctx);
+	void enterMultNone(VYPAParser.MultNoneContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expComparation}.
+	 * Exit a parse tree produced by the {@code MultNone}
+	 * labeled alternative in {@link VYPAParser#expMul}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpComparation(VYPAParser.ExpComparationContext ctx);
+	void exitMultNone(VYPAParser.MultNoneContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expAnd}.
+	 * Enter a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link VYPAParser#expAdd}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpAnd(VYPAParser.ExpAndContext ctx);
+	void enterAdd(VYPAParser.AddContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expAnd}.
+	 * Exit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link VYPAParser#expAdd}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpAnd(VYPAParser.ExpAndContext ctx);
+	void exitAdd(VYPAParser.AddContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#expOr}.
+	 * Enter a parse tree produced by the {@code AddNone}
+	 * labeled alternative in {@link VYPAParser#expAdd}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpOr(VYPAParser.ExpOrContext ctx);
+	void enterAddNone(VYPAParser.AddNoneContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#expOr}.
+	 * Exit a parse tree produced by the {@code AddNone}
+	 * labeled alternative in {@link VYPAParser#expAdd}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpOr(VYPAParser.ExpOrContext ctx);
+	void exitAddNone(VYPAParser.AddNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code RelNone}
+	 * labeled alternative in {@link VYPAParser#expRel}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelNone(VYPAParser.RelNoneContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code RelNone}
+	 * labeled alternative in {@link VYPAParser#expRel}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelNone(VYPAParser.RelNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Rel}
+	 * labeled alternative in {@link VYPAParser#expRel}.
+	 * @param ctx the parse tree
+	 */
+	void enterRel(VYPAParser.RelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Rel}
+	 * labeled alternative in {@link VYPAParser#expRel}.
+	 * @param ctx the parse tree
+	 */
+	void exitRel(VYPAParser.RelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Compare}
+	 * labeled alternative in {@link VYPAParser#expComparation}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompare(VYPAParser.CompareContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Compare}
+	 * labeled alternative in {@link VYPAParser#expComparation}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompare(VYPAParser.CompareContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CompareNone}
+	 * labeled alternative in {@link VYPAParser#expComparation}.
+	 * @param ctx the parse tree
+	 */
+	void enterCompareNone(VYPAParser.CompareNoneContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CompareNone}
+	 * labeled alternative in {@link VYPAParser#expComparation}.
+	 * @param ctx the parse tree
+	 */
+	void exitCompareNone(VYPAParser.CompareNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code And}
+	 * labeled alternative in {@link VYPAParser#expAnd}.
+	 * @param ctx the parse tree
+	 */
+	void enterAnd(VYPAParser.AndContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code And}
+	 * labeled alternative in {@link VYPAParser#expAnd}.
+	 * @param ctx the parse tree
+	 */
+	void exitAnd(VYPAParser.AndContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AndNone}
+	 * labeled alternative in {@link VYPAParser#expAnd}.
+	 * @param ctx the parse tree
+	 */
+	void enterAndNone(VYPAParser.AndNoneContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AndNone}
+	 * labeled alternative in {@link VYPAParser#expAnd}.
+	 * @param ctx the parse tree
+	 */
+	void exitAndNone(VYPAParser.AndNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OrNone}
+	 * labeled alternative in {@link VYPAParser#expOr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrNone(VYPAParser.OrNoneContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OrNone}
+	 * labeled alternative in {@link VYPAParser#expOr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrNone(VYPAParser.OrNoneContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link VYPAParser#expOr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOr(VYPAParser.OrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Or}
+	 * labeled alternative in {@link VYPAParser#expOr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOr(VYPAParser.OrContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#expr}.
 	 * @param ctx the parse tree

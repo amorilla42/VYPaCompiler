@@ -13,12 +13,11 @@ funcDef: returnType IDENTIFIER LPAR (VOID | paramDefList)? RPAR codeBlock;
 
 paramDefList: paramDef (COMMA paramDef)*;
 
-paramDef: dataType IDENTIFIER
-;
+paramDef: dataType IDENTIFIER;
 
 // Class Definition
 classDef:
-        CLASS IDENTIFIER classExtends? LPAR classBody RPAR
+        CLASS IDENTIFIER classExtends? LBRACE classBody RBRACE
         ;
 
 classExtends: COLON IDENTIFIER;
@@ -120,34 +119,34 @@ newObject:
 //Expressions operation ordered by priority
 
 expUnary:
-    NOT expUnary
-    |LPAR dataType RPAR expUnary
-    |literal
-    |variable
+    NOT expUnary                            #Not
+    |LPAR dataType RPAR expUnary            #Cast
+    |literal                                #UnaNone
+    |variable                               #UnaNone
     ;
 expMul:
-    expUnary
-    |expMul op=(MUL | DIV) expUnary
+    expUnary                                #MultNone
+    |expMul op=(MUL | DIV) expUnary         #Mult
     ;
 expAdd:
-    expMul
-    |expAdd op=(ADD | SUB) expMul
+    expMul                                  #AddNone
+    |expAdd op=(ADD | SUB) expMul           #Add
     ;
 expRel:
-    expAdd
-    |expAdd op=(GT|LT|LE|GE) expAdd
+    expAdd                                  #RelNone
+    |expAdd op=(GT|LT|LE|GE) expAdd         #Rel
     ;
 expComparation:
-    expRel
-    |expComparation op=(EQ|NEQ) expRel
+    expRel                                  #CompareNone
+    |expComparation op=(EQ|NEQ) expRel      #Compare
     ;
 expAnd:
-    expComparation
-    |expAnd AND expComparation
+    expComparation                  #AndNone
+    |expAnd AND expComparation      #And
     ;
 expOr:
-    expAnd
-    |expOr OR expAnd
+    expAnd           #OrNone
+    |expOr OR expAnd #Or
     ;
 expr:
     expOr

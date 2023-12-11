@@ -1,12 +1,148 @@
 package expression;
 
+import parser.VYPALexer;
 import parser.VYPAParser;
 import parser.VYPAParserBaseVisitor;
 
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> {
+    @Override
+    public AST visitNot(VYPAParser.NotContext ctx) {
+        return new NotExpression((Expression) visit(ctx.expUnary()));
+    }
+
+    @Override
+    public AST visitCast(VYPAParser.CastContext ctx) {
+        String type = ctx.dataType().getText();
+        Expression toBeCast = (Expression) visit(ctx.expUnary());
+        return new CastExpression(type, toBeCast);
+    }
+
+    @Override
+    public AST visitMult(VYPAParser.MultContext ctx) {
+        Expression leftExp = (Expression) visit(ctx.expMul());
+        Expression rightExp = (Expression) visit(ctx.expUnary());
+
+        AST.BinaryOp opType;
+
+        if (ctx.op.getType() == VYPALexer.MUL) {
+            opType = AST.BinaryOp.MUL;
+        } else {
+            opType = AST.BinaryOp.DIV;
+        }
+
+        return new BinaryExpression(leftExp, rightExp, opType);
+    }
+
+    @Override
+    public AST visitAdd(VYPAParser.AddContext ctx) {
+        Expression leftExp = (Expression) visit(ctx.expAdd());
+        Expression rightExp = (Expression) visit(ctx.expMul());
+
+        AST.BinaryOp opType;
+        if (ctx.op.getType() == VYPALexer.ADD) {
+            opType = AST.BinaryOp.ADD;
+        } else {
+            opType = AST.BinaryOp.SUB;
+        }
+
+        return new BinaryExpression(leftExp, rightExp, opType);
+    }
+
+    @Override
+    public AST visitRel(VYPAParser.RelContext ctx) {
+        Expression leftExp = (Expression) visit(ctx.expAdd(0));
+        Expression rightExp = (Expression) visit(ctx.expAdd(1));
+
+        AST.BinaryOp opType;
+        int type = ctx.op.getType();
+        if (type == VYPALexer.GE) {
+            opType = AST.BinaryOp.GE;
+        } else if (type == VYPALexer.GT) {
+            opType = AST.BinaryOp.GT;
+        } else if (type == VYPALexer.LE) {
+            opType = AST.BinaryOp.LE;
+        } else if (type == VYPALexer.LT) {
+            opType = AST.BinaryOp.LT;
+        } else {
+            throw new RuntimeException("Wrong binary operator");
+        }
+        return new BinaryExpression(leftExp, rightExp, opType);
+    }
+
+    @Override
+    public AST visitCompare(VYPAParser.CompareContext ctx) {
+        Expression leftExp = (Expression) visit(ctx.expComparation());
+        Expression rightExp = (Expression) visit(ctx.expRel());
+
+        AST.BinaryOp opType;
+        int type = ctx.op.getType();
+        if (type == VYPALexer.EQ) {
+            opType = AST.BinaryOp.EQ;
+        } else if (type == VYPALexer.NEQ) {
+            opType = AST.BinaryOp.NEQ;
+        } else {
+            throw new RuntimeException("Wrong binary operator");
+        }
+        return new BinaryExpression(leftExp, rightExp, opType);
+    }
+
+    @Override
+    public AST visitAnd(VYPAParser.AndContext ctx) {
+        Expression leftExp = (Expression) visit(ctx.expAnd());
+        Expression rightExp = (Expression) visit(ctx.expComparation());
+
+        return new BinaryExpression(leftExp, rightExp, AST.BinaryOp.AND);
+    }
+
+    @Override
+    public AST visitOr(VYPAParser.OrContext ctx) {
+        Expression leftExp = (Expression) visit(ctx.expOr());
+        Expression rightExp = (Expression) visit(ctx.expAnd());
+        return new BinaryExpression(leftExp, rightExp, AST.BinaryOp.OR);
+    }
+    @Override
+    public AST visitMethodDef(VYPAParser.MethodDefContext ctx) {
+        String type = ctx.returnType().getText();
+        String name = ctx.IDENTIFIER().getText();
+        List<ParamDef> paramDefs = new ArrayList<>();
+        if (ctx.paramDefList() != null) {
+            ctx.paramDefList().paramDef().forEach(paramDefContext -> paramDefs.add((ParamDef) visit(paramDefContext)));
+        }
+        CodeBlock body = (CodeBlock) visit(ctx.codeBlock());
+        return new MethodDef(type, name, new ParamDefList(paramDefs), new Statements(body.getStatements()));
+    }
+
+    @Override
+    public AST visitClassDef(VYPAParser.ClassDefContext ctx) {
+        String name = ctx.IDENTIFIER().getText();
+        VYPAParser.ClassExtendsContext extendsContext = ctx.classExtends();
+        String superClass = "Object";
+        if(extendsContext != null){
+            superClass = extendsContext.IDENTIFIER().getText();
+        }
+        List<VariableDef> variableDefs = new ArrayList<>();
+        List<MethodDef> methodDefs = new ArrayList<>();
+
+        VYPAParser.ClassBodyContext classBody = ctx.classBody();
+        for (VYPAParser.VarDefStatementContext varDefStatementContext : classBody.varDefStatement()) {
+            Statements statements = (Statements) visit(varDefStatementContext);
+            for (AST statement : statements.getStatements()) {
+                if (statement instanceof VariableDef) {
+                    variableDefs.add((VariableDef) statement);
+                }
+            }
+        }
+        classBody.methodDef().forEach(methodDefContext -> {
+            MethodDef methodDef = (MethodDef) visit(methodDefContext);
+            methodDefs.add(methodDef);
+        });
+        return new ClassDef(name,superClass,variableDefs,methodDefs);
+    }
 
     @Override
     public AST visitGenericDef(VYPAParser.GenericDefContext ctx){
