@@ -952,6 +952,18 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class IfStatementContext extends ParserRuleContext {
+		public IfStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_ifStatement; }
+	 
+		public IfStatementContext() { }
+		public void copyFrom(IfStatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IfElseContext extends IfStatementContext {
 		public TerminalNode IF() { return getToken(VYPAParser.IF, 0); }
 		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
 		public ExprContext expr() {
@@ -964,21 +976,44 @@ public class VYPAParser extends Parser {
 		public ElseStatementContext elseStatement() {
 			return getRuleContext(ElseStatementContext.class,0);
 		}
-		public IfStatementContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_ifStatement; }
+		public IfElseContext(IfStatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterIfStatement(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterIfElse(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitIfStatement(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitIfElse(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitIfStatement(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitIfElse(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IfThenContext extends IfStatementContext {
+		public TerminalNode IF() { return getToken(VYPAParser.IF, 0); }
+		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode RPAR() { return getToken(VYPAParser.RPAR, 0); }
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
+		}
+		public IfThenContext(IfStatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterIfThen(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitIfThen(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitIfThen(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -991,6 +1026,7 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
+				_localctx = new IfElseContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(163);
@@ -1008,6 +1044,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new IfThenContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(170);
@@ -1037,25 +1074,34 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ElseStatementContext extends ParserRuleContext {
-		public TerminalNode ELSE() { return getToken(VYPAParser.ELSE, 0); }
-		public StatementContext statement() {
-			return getRuleContext(StatementContext.class,0);
-		}
 		public ElseStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_elseStatement; }
+	 
+		public ElseStatementContext() { }
+		public void copyFrom(ElseStatementContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ElseContext extends ElseStatementContext {
+		public TerminalNode ELSE() { return getToken(VYPAParser.ELSE, 0); }
+		public StatementContext statement() {
+			return getRuleContext(StatementContext.class,0);
+		}
+		public ElseContext(ElseStatementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterElseStatement(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterElse(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitElseStatement(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitElse(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitElseStatement(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitElse(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1064,6 +1110,7 @@ public class VYPAParser extends Parser {
 		ElseStatementContext _localctx = new ElseStatementContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_elseStatement);
 		try {
+			_localctx = new ElseContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(178);

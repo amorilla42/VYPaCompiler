@@ -161,25 +161,37 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfStatement(VYPAParser.IfStatementContext ctx) { }
+	@Override public void enterIfElse(VYPAParser.IfElseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfStatement(VYPAParser.IfStatementContext ctx) { }
+	@Override public void exitIfElse(VYPAParser.IfElseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElseStatement(VYPAParser.ElseStatementContext ctx) { }
+	@Override public void enterIfThen(VYPAParser.IfThenContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElseStatement(VYPAParser.ElseStatementContext ctx) { }
+	@Override public void exitIfThen(VYPAParser.IfThenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElse(VYPAParser.ElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElse(VYPAParser.ElseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

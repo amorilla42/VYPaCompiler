@@ -83,17 +83,26 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(VYPAParser.StatementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#ifStatement}.
+	 * Visit a parse tree produced by the {@code IfElse}
+	 * labeled alternative in {@link VYPAParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIfStatement(VYPAParser.IfStatementContext ctx);
+	T visitIfElse(VYPAParser.IfElseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#elseStatement}.
+	 * Visit a parse tree produced by the {@code IfThen}
+	 * labeled alternative in {@link VYPAParser#ifStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElseStatement(VYPAParser.ElseStatementContext ctx);
+	T visitIfThen(VYPAParser.IfThenContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Else}
+	 * labeled alternative in {@link VYPAParser#elseStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElse(VYPAParser.ElseContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#whileStatement}.
 	 * @param ctx the parse tree

@@ -46,11 +46,11 @@ statement:
         ;
 
 ifStatement:
-        IF LPAR expr RPAR statement elseStatement
-        |IF LPAR expr RPAR statement
+        IF LPAR expr RPAR statement elseStatement       #IfElse
+        |IF LPAR expr RPAR statement                    #IfThen
         ;
 
-elseStatement: ELSE statement
+elseStatement: ELSE statement                           #Else
         ;
 
 whileStatement: WHILE LPAR expr RPAR statement;

@@ -11,6 +11,37 @@ import java.util.stream.Collectors;
 
 public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> {
     @Override
+    public AST visitIfElse(VYPAParser.IfElseContext ctx) {
+        Expression condition = (Expression) visit(ctx.expr());
+        AST statement = visit(ctx.statement());
+        AST elseStatement = visit(ctx.elseStatement());
+        return new IfElseStatement(condition, statement, elseStatement);
+    }
+
+    @Override
+    public AST visitIfThen(VYPAParser.IfThenContext ctx) {
+        Expression condition =  (Expression) visit(ctx.expr());
+        AST statement = visit(ctx.statement());
+        return new IfStatement(condition, statement);
+    }
+
+    @Override
+    public AST visitElse(VYPAParser.ElseContext ctx) {
+        return visit(ctx.statement());
+    }
+
+    @Override
+    public AST visitWhileStatement(VYPAParser.WhileStatementContext ctx) {
+        VYPAParser.ExprContext conditionContext = ctx.expr();
+        Expression condition = null;
+        if (conditionContext != null) {
+            condition = (Expression) visit(conditionContext);
+        }
+        AST statement = visit(ctx.statement());
+        return new WhileStatement(condition, statement);
+    }
+
+    @Override
     public AST visitNot(VYPAParser.NotContext ctx) {
         return new NotExpression((Expression) visit(ctx.expUnary()));
     }

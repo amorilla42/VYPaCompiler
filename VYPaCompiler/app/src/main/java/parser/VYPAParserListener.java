@@ -128,25 +128,41 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitStatement(VYPAParser.StatementContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#ifStatement}.
+	 * Enter a parse tree produced by the {@code IfElse}
+	 * labeled alternative in {@link VYPAParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfStatement(VYPAParser.IfStatementContext ctx);
+	void enterIfElse(VYPAParser.IfElseContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#ifStatement}.
+	 * Exit a parse tree produced by the {@code IfElse}
+	 * labeled alternative in {@link VYPAParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfStatement(VYPAParser.IfStatementContext ctx);
+	void exitIfElse(VYPAParser.IfElseContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#elseStatement}.
+	 * Enter a parse tree produced by the {@code IfThen}
+	 * labeled alternative in {@link VYPAParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterElseStatement(VYPAParser.ElseStatementContext ctx);
+	void enterIfThen(VYPAParser.IfThenContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#elseStatement}.
+	 * Exit a parse tree produced by the {@code IfThen}
+	 * labeled alternative in {@link VYPAParser#ifStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitElseStatement(VYPAParser.ElseStatementContext ctx);
+	void exitIfThen(VYPAParser.IfThenContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Else}
+	 * labeled alternative in {@link VYPAParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void enterElse(VYPAParser.ElseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Else}
+	 * labeled alternative in {@link VYPAParser#elseStatement}.
+	 * @param ctx the parse tree
+	 */
+	void exitElse(VYPAParser.ElseContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#whileStatement}.
 	 * @param ctx the parse tree
