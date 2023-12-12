@@ -270,14 +270,28 @@ public class VYPAParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNewObjParams(VYPAParser.NewObjParamsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNewObject(VYPAParser.NewObjectContext ctx) { return visitChildren(ctx); }
+	@Override public T visitObjParams(VYPAParser.ObjParamsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNewObj(VYPAParser.NewObjContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

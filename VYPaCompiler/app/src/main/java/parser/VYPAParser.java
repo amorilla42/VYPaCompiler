@@ -2227,26 +2227,54 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class NewObjParamsContext extends ParserRuleContext {
-		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
-		public TerminalNode RPAR() { return getToken(VYPAParser.RPAR, 0); }
-		public ExpressionListContext expressionList() {
-			return getRuleContext(ExpressionListContext.class,0);
-		}
 		public NewObjParamsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_newObjParams; }
+	 
+		public NewObjParamsContext() { }
+		public void copyFrom(NewObjParamsContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ObjParamsEmptyContext extends NewObjParamsContext {
+		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
+		public TerminalNode RPAR() { return getToken(VYPAParser.RPAR, 0); }
+		public ObjParamsEmptyContext(NewObjParamsContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterNewObjParams(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterObjParamsEmpty(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitNewObjParams(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitObjParamsEmpty(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitNewObjParams(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitObjParamsEmpty(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ObjParamsContext extends NewObjParamsContext {
+		public TerminalNode LPAR() { return getToken(VYPAParser.LPAR, 0); }
+		public ExpressionListContext expressionList() {
+			return getRuleContext(ExpressionListContext.class,0);
+		}
+		public TerminalNode RPAR() { return getToken(VYPAParser.RPAR, 0); }
+		public ObjParamsContext(NewObjParamsContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterObjParams(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitObjParams(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitObjParams(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2259,6 +2287,7 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
+				_localctx = new ObjParamsEmptyContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(282);
@@ -2268,6 +2297,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new ObjParamsContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(284);
@@ -2293,26 +2323,54 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class NewObjectContext extends ParserRuleContext {
+		public NewObjectContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_newObject; }
+	 
+		public NewObjectContext() { }
+		public void copyFrom(NewObjectContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NewObjContext extends NewObjectContext {
 		public TerminalNode NEW() { return getToken(VYPAParser.NEW, 0); }
 		public TerminalNode IDENTIFIER() { return getToken(VYPAParser.IDENTIFIER, 0); }
 		public NewObjParamsContext newObjParams() {
 			return getRuleContext(NewObjParamsContext.class,0);
 		}
-		public NewObjectContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_newObject; }
+		public NewObjContext(NewObjectContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterNewObject(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterNewObj(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitNewObject(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitNewObj(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitNewObject(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitNewObj(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class NewObjnoParamsContext extends NewObjectContext {
+		public TerminalNode NEW() { return getToken(VYPAParser.NEW, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(VYPAParser.IDENTIFIER, 0); }
+		public NewObjnoParamsContext(NewObjectContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterNewObjnoParams(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitNewObjnoParams(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitNewObjnoParams(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2325,6 +2383,7 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
 			case 1:
+				_localctx = new NewObjContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(290);
@@ -2336,6 +2395,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new NewObjnoParamsContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(293);

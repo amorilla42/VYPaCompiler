@@ -244,17 +244,33 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInvocation(VYPAParser.InvocationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#newObjParams}.
+	 * Visit a parse tree produced by the {@code ObjParamsEmpty}
+	 * labeled alternative in {@link VYPAParser#newObjParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNewObjParams(VYPAParser.NewObjParamsContext ctx);
+	T visitObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#newObject}.
+	 * Visit a parse tree produced by the {@code ObjParams}
+	 * labeled alternative in {@link VYPAParser#newObjParams}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNewObject(VYPAParser.NewObjectContext ctx);
+	T visitObjParams(VYPAParser.ObjParamsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NewObj}
+	 * labeled alternative in {@link VYPAParser#newObject}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNewObj(VYPAParser.NewObjContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NewObjnoParams}
+	 * labeled alternative in {@link VYPAParser#newObject}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Not}
 	 * labeled alternative in {@link VYPAParser#expUnary}.

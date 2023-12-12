@@ -11,6 +11,28 @@ import java.util.stream.Collectors;
 
 public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> {
     @Override
+    public AST visitObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx) {
+        return new ExpressionList(new ArrayList<>());
+    }
+
+    @Override
+    public AST visitObjParams(VYPAParser.ObjParamsContext ctx) {
+        return visit(ctx.expressionList());
+    }
+
+    @Override
+    public AST visitNewObj(VYPAParser.NewObjContext ctx) {
+        ExpressionList params = (ExpressionList) visit(ctx.newObjParams());
+        return new NewObjExpression(ctx.IDENTIFIER().getText(), params);
+    }
+
+    @Override
+    public AST visitNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx) {
+        ExpressionList params = new ExpressionList(new ArrayList<>());
+        return new NewObjExpression(ctx.IDENTIFIER().getText(),params);
+    }
+
+    @Override
     public AST visitIfElse(VYPAParser.IfElseContext ctx) {
         Expression condition = (Expression) visit(ctx.expr());
         AST statement = visit(ctx.statement());
@@ -302,6 +324,7 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         if (exp instanceof Invocation){
             Invocation i = (Invocation) exp;
             //TODO: NEW INVOKEMETHOD
+
         }
         return exp;
     }

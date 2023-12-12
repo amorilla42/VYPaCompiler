@@ -107,13 +107,13 @@ fieldAccess:
 invocation: IDENTIFIER LPAR expressionList? RPAR;
 
 newObjParams:
-            LPAR RPAR
-            |LPAR expressionList RPAR
+            LPAR RPAR                           #ObjParamsEmpty
+            |LPAR expressionList RPAR           #ObjParams
             ;
 
 newObject:
-         NEW IDENTIFIER newObjParams
-         |NEW IDENTIFIER
+         NEW IDENTIFIER newObjParams            #NewObj
+         |NEW IDENTIFIER                        #NewObjnoParams
          ;
 
 //Expressions operation ordered by priority

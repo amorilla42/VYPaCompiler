@@ -402,25 +402,53 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitInvocation(VYPAParser.InvocationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#newObjParams}.
+	 * Enter a parse tree produced by the {@code ObjParamsEmpty}
+	 * labeled alternative in {@link VYPAParser#newObjParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterNewObjParams(VYPAParser.NewObjParamsContext ctx);
+	void enterObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#newObjParams}.
+	 * Exit a parse tree produced by the {@code ObjParamsEmpty}
+	 * labeled alternative in {@link VYPAParser#newObjParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitNewObjParams(VYPAParser.NewObjParamsContext ctx);
+	void exitObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#newObject}.
+	 * Enter a parse tree produced by the {@code ObjParams}
+	 * labeled alternative in {@link VYPAParser#newObjParams}.
 	 * @param ctx the parse tree
 	 */
-	void enterNewObject(VYPAParser.NewObjectContext ctx);
+	void enterObjParams(VYPAParser.ObjParamsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#newObject}.
+	 * Exit a parse tree produced by the {@code ObjParams}
+	 * labeled alternative in {@link VYPAParser#newObjParams}.
 	 * @param ctx the parse tree
 	 */
-	void exitNewObject(VYPAParser.NewObjectContext ctx);
+	void exitObjParams(VYPAParser.ObjParamsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NewObj}
+	 * labeled alternative in {@link VYPAParser#newObject}.
+	 * @param ctx the parse tree
+	 */
+	void enterNewObj(VYPAParser.NewObjContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NewObj}
+	 * labeled alternative in {@link VYPAParser#newObject}.
+	 * @param ctx the parse tree
+	 */
+	void exitNewObj(VYPAParser.NewObjContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code NewObjnoParams}
+	 * labeled alternative in {@link VYPAParser#newObject}.
+	 * @param ctx the parse tree
+	 */
+	void enterNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code NewObjnoParams}
+	 * labeled alternative in {@link VYPAParser#newObject}.
+	 * @param ctx the parse tree
+	 */
+	void exitNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Not}
 	 * labeled alternative in {@link VYPAParser#expUnary}.

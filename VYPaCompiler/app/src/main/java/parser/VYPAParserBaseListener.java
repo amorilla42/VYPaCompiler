@@ -449,25 +449,49 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNewObjParams(VYPAParser.NewObjParamsContext ctx) { }
+	@Override public void enterObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNewObjParams(VYPAParser.NewObjParamsContext ctx) { }
+	@Override public void exitObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNewObject(VYPAParser.NewObjectContext ctx) { }
+	@Override public void enterObjParams(VYPAParser.ObjParamsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNewObject(VYPAParser.NewObjectContext ctx) { }
+	@Override public void exitObjParams(VYPAParser.ObjParamsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNewObj(VYPAParser.NewObjContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewObj(VYPAParser.NewObjContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewObjnoParams(VYPAParser.NewObjnoParamsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
