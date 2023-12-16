@@ -1,0 +1,7 @@
+chmod +x gradlew
+
+./gradlew
+
+./gradlew run --max-workers=1
+
+
