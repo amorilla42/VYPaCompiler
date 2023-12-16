@@ -15,7 +15,9 @@ public class App {
     public static void main(String[] args) {
 
 
-        String input = "int lmao=4; void main() { return 0;}";
+        String input = "int lmao=4;" +
+                " class antonia{ int sa; int lololo(){sa = 5; loca = \"4\"; } } " +
+                "void main() { if (salsa) usted(); else locasa(); return 0;}";
         CharStream stream = CharStreams.fromString(input);
 
         VYPALexer lexer = new VYPALexer(stream);
@@ -31,6 +33,9 @@ public class App {
             Program program = (Program) abstractSyntaxTree;
             System.out.println(program.getGlobalVariableDefinitions().get(0).getIdentifier());
             System.out.println(program.getFunctionDefinitions().get(0).getType());
+            System.out.println(program.getClassDefinitions().get(0).getName());
+            System.out.println(program.getClassDefinitions().get(0).getClassExtends());
+            System.out.println(program.getClassDefinitions().get(0).getMethodDefs().get(0).getName());
             System.out.println("i am a program");
         }
 
