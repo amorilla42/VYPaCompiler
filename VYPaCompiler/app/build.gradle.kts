@@ -37,7 +37,7 @@ application {
 tasks {
 
     generateGrammarSource{
-        maxHeapSize="100";
+        maxHeapSize="10m";
         val pkg = "parser"
         arguments = arguments + listOf("-package", pkg) + listOf("-visitor")
         outputDirectory = file("src/main/java/parser")
