@@ -352,4 +352,33 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         }
         return exp;
     }
+
+    @Override
+    public AST visitVariableThis(VYPAParser.VariableThisContext ctx){
+        return new ThisExpression();
+    }
+
+    @Override
+    public AST visitVariablePar(VYPAParser.VariableParContext ctx){
+        return visit(ctx.expr());
+    }
+
+    @Override
+    public AST visitVariableInvokeFunction(VYPAParser.VariableInvokeFunctionContext ctx) {
+        Invocation in = (Invocation) visit(ctx.invocation());
+
+        return switch (in.getIdentifier()) {
+            case "print" -> new PrintFunction(in.getArgs());
+            case "length" -> new LengthFunction(in.getArgs());
+            case "readInt" -> new ReadIntFunction(in.getArgs());
+            case "readString" -> new ReadStringFunction(in.getArgs());
+            case "subStr" -> new SubStrFunction(in.getArgs());
+            default -> new FunctionInvokeExpression(in.getIdentifier(), in.getArgs());
+        };
+    }
+
+    @Override
+    public AST visitIdentifier(VYPAParser.IdentifierContext ctx) {
+        return new IdentifierExpression(ctx.IDENTIFIER().getText());
+    }
 }
