@@ -9,8 +9,8 @@ public class ClassDef extends AST {
         return name;
     }
 
-    public String getClassExtends() {
-        return classExtends;
+    public String getSuperClass() {
+        return superClass;
     }
 
     public List<VariableDef> getVariableDefs() {
@@ -23,15 +23,16 @@ public class ClassDef extends AST {
 
     public ClassDef(String name, String classExtends, List<VariableDef> variableDefs, List<MethodDef> methodDefs) {
         this.name = name;
-        this.classExtends = classExtends;
+        this.superClass = classExtends;
         this.variableDefs = variableDefs;
         this.methodDefs = methodDefs;
     }
 
     private String name;
-    private String classExtends;
+    private String superClass;
     private List<VariableDef> variableDefs;
     private List<MethodDef> methodDefs;
+
     @Override
     public void checkType(SymbolTable st) {
 

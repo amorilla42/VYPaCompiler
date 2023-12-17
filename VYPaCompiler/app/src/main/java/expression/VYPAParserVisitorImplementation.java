@@ -4,10 +4,8 @@ import parser.VYPALexer;
 import parser.VYPAParser;
 import parser.VYPAParserBaseVisitor;
 
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> {
     @Override
@@ -282,6 +280,34 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         return new Assing(var,expr);
     }
 
+    @Override
+    public AST visitSideEffectInvokeFunction(VYPAParser.SideEffectInvokeFunctionContext ctx){
+
+        Invocation in = (Invocation) visit(ctx.invocation());
+
+        return switch (in.getIdentifier()) {
+            case "print" -> new PrintFunction(in.getArgs());
+            case "length" -> new LengthFunction(in.getArgs());
+            case "readInt" -> new ReadIntFunction(in.getArgs());
+            case "readString" -> new ReadStringFunction(in.getArgs());
+            case "subStr" -> new SubStrFunction(in.getArgs());
+            case "super" -> new SuperFunction(in.getArgs());
+            default -> new FunctionInvokeExpression(in.getIdentifier(), in.getArgs());
+        };
+    }
+
+    @Override
+    public AST visitSideEffectInvokeMethod(VYPAParser.SideEffectInvokeMethodContext ctx){
+        Expression variable = (Expression) visit(ctx.variable());
+        String name = ctx.IDENTIFIER().getText();
+        ExpressionList args = null;
+        if (ctx.expressionList() == null)
+            args = new ExpressionList(new ArrayList<>());
+        else
+            args = (ExpressionList) visit(ctx.expressionList());
+        return new MethodInvokeExpression(variable,name,args);
+    }
+
     private Expression merge(Expression left, Expression right){
         if (right instanceof Invocation)
             ((Invocation) right).setFather(left);
@@ -321,10 +347,8 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         for (VYPAParser.FieldAccessContext c : ctx.fieldAccess()){
             exp = merge(exp,(Expression)visit(c));
         }
-        if (exp instanceof Invocation){
-            Invocation i = (Invocation) exp;
-            //TODO: NEW INVOKEMETHOD
-
+        if (exp instanceof Invocation i){
+            return new MethodInvokeExpression(i.getFather(),i.getIdentifier(),i.getArgs());
         }
         return exp;
     }

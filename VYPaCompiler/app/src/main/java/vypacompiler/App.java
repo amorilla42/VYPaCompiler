@@ -15,9 +15,9 @@ public class App {
     public static void main(String[] args) {
 
 
-        String input = "int lmao=4;" +
-                " class antonia{ int sa; int lololo(){sa = 5; loca = \"4\"; } } " +
-                "void main() { if (salsa) usted(); else locasa(); return 0;}";
+        String input = "int a=4;" +
+                " class obj{ int sa; int func3(){sa = 5; err = \"4\"; } } " +
+                "void main() { if (dddd) usted(); else locasa(); return 0;}";
         CharStream stream = CharStreams.fromString(input);
 
         VYPALexer lexer = new VYPALexer(stream);
@@ -29,12 +29,18 @@ public class App {
 
         VYPAParserVisitor<AST> visitor = new VYPAParserVisitorImplementation();
         AST abstractSyntaxTree = visitor.visit(tree);
+
+
+
+
+
+
         if (abstractSyntaxTree instanceof Program){ //true if the root of the abstract syntax tree is a Program Type Node
             Program program = (Program) abstractSyntaxTree;
             System.out.println(program.getGlobalVariableDefinitions().get(0).getIdentifier());
             System.out.println(program.getFunctionDefinitions().get(0).getType());
             System.out.println(program.getClassDefinitions().get(0).getName());
-            System.out.println(program.getClassDefinitions().get(0).getClassExtends());
+            System.out.println(program.getClassDefinitions().get(0).getSuperClass());
             System.out.println(program.getClassDefinitions().get(0).getMethodDefs().get(0).getName());
             System.out.println("i am a program");
         }
