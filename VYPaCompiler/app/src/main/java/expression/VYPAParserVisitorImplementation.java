@@ -165,7 +165,7 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
             ctx.paramDefList().paramDef().forEach(paramDefContext -> paramDefs.add((ParamDef) visit(paramDefContext)));
         }
         CodeBlock body = (CodeBlock) visit(ctx.codeBlock());
-        return new MethodDef(type, name, new ParamDefList(paramDefs), new Statements(body.getStatements()));
+        return new MethodDef(type, name, new ParamDefList(paramDefs), new CodeBlock(body.getStatements()));
     }
 
     @Override

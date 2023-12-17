@@ -6,7 +6,7 @@ public class MethodDef extends AST{
     private String name;
     private ParamDefList params;
     private String type;
-    private Statements body;
+    private CodeBlock body;
     public String getType() {
         return type;
     }
@@ -20,13 +20,13 @@ public class MethodDef extends AST{
     }
 
 
-    public Statements getBody() {
+    public CodeBlock getBody() {
         return body;
     }
 
 
 
-    public MethodDef(String type, String name, ParamDefList params, Statements body) {
+    public MethodDef(String type, String name, ParamDefList params, CodeBlock body) {
         this.type = type;
         this.name = name;
         this.params = params;
