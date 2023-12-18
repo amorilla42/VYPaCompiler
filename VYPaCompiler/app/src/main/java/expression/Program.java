@@ -2,6 +2,8 @@ package expression;
 
 import tables.SymbolTable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Program extends AST{
@@ -49,6 +51,7 @@ public class Program extends AST{
         }
         functionDefinitions.add(new SubStrFunctionDef());
         functionDefinitions.add(new ConcatDef());
+
         for (FunctionDef functionDef : functionDefinitions) {
             st.addFunctionDef(functionDef);
         }
