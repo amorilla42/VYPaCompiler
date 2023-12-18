@@ -17,7 +17,11 @@ public class ExpressionList extends AST {
 
     @Override
     public void checkType(SymbolTable st) {
-
+        for (Expression ast : expressions) {
+            if(ast != null) {
+                ast.checkType(st);
+            }
+        }
     }
 
 

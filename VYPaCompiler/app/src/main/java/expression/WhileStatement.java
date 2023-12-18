@@ -21,6 +21,8 @@ public class WhileStatement extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
-
+        if (condition != null) {
+            condition.checkType(st);
+        }
     }
 }

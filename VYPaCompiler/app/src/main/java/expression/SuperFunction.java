@@ -22,6 +22,11 @@ public class SuperFunction extends Expression{
 
     @Override
     public void checkType(SymbolTable st) {
+        ClassDef currentClassDefinition = st.getCurrentClassDefinition();
+        superClass = currentClassDefinition.getSuperClassDef();
+        for (Expression e : args.getExpressions()) {
+            e.checkType(st);
+        }
 
     }
 

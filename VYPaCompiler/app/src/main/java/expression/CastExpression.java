@@ -13,6 +13,10 @@ public class CastExpression extends Expression{
 
     @Override
     public void checkType(SymbolTable st) {
+        toBeCast.checkType(st);
+        if (!st.isCastable(type, toBeCast.getType())) {
+            throw new RuntimeException("Cant cast " + toBeCast.getType() + " to " + type);
+        }
 
     }
 

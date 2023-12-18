@@ -32,6 +32,9 @@ public class Invocation extends Expression{
 
     @Override
     public void checkType(SymbolTable st) {
+        father.checkType(st);
+        args.checkType(st);
+            type = st.getMethodType(father.getType(), identifier);
 
     }
 

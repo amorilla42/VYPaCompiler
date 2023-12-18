@@ -23,6 +23,10 @@ public class IdentifierExpression extends Expression {
 
     @Override
     public void checkType(SymbolTable st) {
+        this.type = st.getType(identifier);
+        if (type == null) {
+            throw new RuntimeException("Unknown type for variable " + identifier);
+        }
 
     }
 

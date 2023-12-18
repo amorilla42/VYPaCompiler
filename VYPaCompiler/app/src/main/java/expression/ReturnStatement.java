@@ -19,6 +19,9 @@ public class ReturnStatement extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
+        if (exp != null) {
+            exp.checkType(st);
+        }
 
     }
 }

@@ -16,6 +16,6 @@ public class ExpressionStatement extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
-
+        expression.checkType(st);
     }
 }

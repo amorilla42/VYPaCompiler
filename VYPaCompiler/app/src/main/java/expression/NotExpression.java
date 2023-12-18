@@ -11,6 +11,10 @@ public class NotExpression extends Expression {
 
     @Override
     public void checkType(SymbolTable st) {
+        toBeNegated.checkType(st);
+        if (!toBeNegated.getType().equals(BOOL_TYPE)) {
+            throw new RuntimeException("non boolean");
+        }
 
     }
 

@@ -22,6 +22,10 @@ public class FunctionInvokeExpression extends Expression {
 
     @Override
     public void checkType(SymbolTable st) {
+        args.checkType(st);
+        FunctionDef functionDef = st.getFunctionDef(funcId);
+        type = functionDef.getType();
+        st.checkTypes(functionDef.getParams(), args);
 
     }
 

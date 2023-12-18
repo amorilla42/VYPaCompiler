@@ -18,6 +18,19 @@ public class CodeBlock extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
+        boolean foundReturn = false;
+
+        st.pushLocalStack();
+        for (AST ast : statements) {
+            if (foundReturn) {
+                throw new RuntimeException("Found statement following return!");
+            }
+            ast.checkType(st);
+            if (ast instanceof ReturnStatement) {
+                foundReturn = true;
+            }
+        }
+        st.popLocalStack();
 
     }
 }

@@ -183,8 +183,82 @@ public class SymbolTable {
         DataVariable dataVariable = new DataVariable(paramDef);
         localVarScopeStack.peek().map.put(paramDef.getName(), dataVariable);
     }
+    public boolean isCastable(String to, String from) {
+        if (from.equals(AST.STRING_TYPE) && to.equals(AST.INT_TYPE)) {
+            return true;
+        }
+        if (from.equals(AST.INT_TYPE) && to.equals(AST.STRING_TYPE)) {
+            return true;
+        }
+        if (isPrimitive(to) || isPrimitive(from)) {
+            return false;
+        }
+        return true;
+    }
+    private boolean isPrimitive(String type) {
+        return AST.VOID_TYPE.equals(type) || AST.BOOL_TYPE.equals(type) || AST.INT_TYPE.equals(type) || AST.STRING_TYPE.equals(type);
+    }
 
+    public String getFieldType(String className, String field) {
+        ClassDef classDef = classDefMap.get(className);
+        if (classDef == null) {
+            throw new RuntimeException("Unknown class");
+        }
+        int idx = classDef.getFieldIndex(field);
+        if (idx == -1) {
+            throw new RuntimeException("Unknown field: "+field+" | Class: " + classDef.getName());
+        }
+        return classDef.getAllFields().get(idx).getType();
+    }
+    private boolean isSubType(String parent, String child) {
+        if (parent.equals(child)) {
+            return true;
+        }
+        if (isPrimitive(parent) || isPrimitive(child)) {
+            return false;
+        }
+        ClassDef it = getClassDef(child);
+        while (it.getSuperClass() != null) {
+            if (it.getName().equals(parent)) {
+                return true;
+            }
+            it = it.getSuperClassDef();
+        }
+        return false;
+    }
+    public boolean checkType(String left, String right) {
+        if (isPrimitive(left)) {
+            if (isPrimitive(right)) {
+                return left.equals(right);
+            }
+            return false;
+        }
+        return isSubType(left, right);
+    }
+    public boolean checkTypes(ParamDefList left, ExpressionList right) {
+        if (left.getParameters().size() != right.getExpressions().size()) {
+            throw new RuntimeException("Parameters count is incorrect");
+        }
+        for (int i = 0; i < left.getParameters().size(); i++) {
+            if (!checkType(left.getParameters().get(i).getType(), right.getExpressions().get(i).getType())) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public String getType(String symbol) {
+        Data e = find(symbol);
+        if (e instanceof DataVariable) {
+            return ((DataVariable)e).varDef.getType();
+        }
+        return e == null ? null : e.getType();
+    }
 
-
-
+    public String getMethodType(String className, String field) {
+        MethodDef methodDef = methodDefMap.get(className + "." + field);
+        return methodDef.getType();
+    }
+    public MethodDef getMethodDef(String clazz, String field) {
+        return methodDefMap.get(clazz + "." + field);
+    }
 }

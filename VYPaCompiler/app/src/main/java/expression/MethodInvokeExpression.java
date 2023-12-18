@@ -26,6 +26,10 @@ public class MethodInvokeExpression extends Expression{
 
     @Override
     public void checkType(SymbolTable st) {
+        arguments.checkType(st);
+        instance.checkType(st);
+        methodDef = st.getMethodDef(instance.getType(), methodName);
+        type = methodDef.getType();
 
     }
 

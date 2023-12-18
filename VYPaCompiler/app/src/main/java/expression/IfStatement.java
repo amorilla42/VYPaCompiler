@@ -13,6 +13,8 @@ public class IfStatement extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
+        condition.checkType(st);
+        statement.checkType(st);
 
     }
 }

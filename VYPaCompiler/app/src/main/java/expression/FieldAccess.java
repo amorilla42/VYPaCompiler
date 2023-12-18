@@ -26,6 +26,11 @@ public class FieldAccess extends Expression{
 
     @Override
     public void checkType(SymbolTable st) {
+        father.checkType(st);
+        if (st.getClassDef(father.getType()) == null) {
+            throw new RuntimeException("Accessing field of a non object!");
+        }
+        type = st.getFieldType(father.getType(), identifier);
 
     }
 
