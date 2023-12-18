@@ -4,6 +4,13 @@ import expression.*;
 import java.util.*;
 
 public class SymbolTable {
+    public Map<String, ClassDef> getClassDefMap() {
+        return classDefMap;
+    }
+
+    public Map<String, MethodDef> getMethodDefMap() {
+        return methodDefMap;
+    }
 
     //CLASS Table
     private Map<String, ClassDef> classDefMap;

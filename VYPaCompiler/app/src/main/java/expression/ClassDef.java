@@ -15,7 +15,6 @@ public class ClassDef extends AST {
     private List<VariableDef> variableDefs;
     private List<MethodDef> methodDefs;
     private MethodDef constructorDef = null;
-    private List<VariableDef> allFields = null;
     public ClassDef getSuperClassDef() {
         return superClassDef;
     }
@@ -85,19 +84,27 @@ public class ClassDef extends AST {
         this.superClass = classExtends;
         this.variableDefs = variableDefs;
         this.methodDefs = methodDefs;
+        for (MethodDef md : methodDefs) {
+            md.setClassDef(this);
+
+        }
     }
+    List<VariableDef> allFields = null;
 
     public List<VariableDef> getAllFields() {
         if (allFields == null) {
-            allFields = new ArrayList<>(superClassDef.getAllFields());
+            allFields = new ArrayList<>();
+            if(superClassDef != null) {
+                allFields.addAll(superClassDef.getAllFields());
+            }
             allFields.addAll(variableDefs);
         }
         return allFields;
     }
     public int getFieldIndex(String name) {
-        List<VariableDef> allFields = getAllFields();
-        for (int i = 0; i < allFields.size(); i++) {
-            if (allFields.get(i).getIdentifier().equals(name)) {
+        getAllFields();
+        for (int i = 0; i < getAllFields().size(); i++) {
+            if (getAllFields().get(i).getIdentifier().equals(name)) {
                 return i;
             }
         }
@@ -108,7 +115,6 @@ public class ClassDef extends AST {
     public void checkType(SymbolTable st) {
         st.startClassDef(this);
         for (MethodDef methodDef : methodDefs) {
-            methodDef.setClassDef(this);
             methodDef.checkType(st);
             if (methodDef.getName().equals(name)) {
                 if (constructorDef != null) {
@@ -126,7 +132,7 @@ public class ClassDef extends AST {
             }
         }
 
-        if (superClassDef.getConstructorDef() != null) {
+        if (superClassDef != null && superClassDef.getConstructorDef() != null) {
             if (!superClassDef.getConstructorDef().getParams().getParameters().isEmpty()) {
                 if (constructorDef == null) {
                     throw new RuntimeException("Missing constructor for superclass in " + name);
@@ -157,7 +163,7 @@ public class ClassDef extends AST {
         }
         for (VariableDef variableDef : variableDefs) {
             variableDef.checkType(st);
-            if (superClassDef.getFieldIndex(variableDef.getIdentifier()) != -1) {
+            if (superClassDef !=null && superClassDef.getFieldIndex(variableDef.getIdentifier()) != -1) {
                 throw new RuntimeException("Field " + variableDef.getIdentifier() + " is already defined in superclass!");
             }
         }

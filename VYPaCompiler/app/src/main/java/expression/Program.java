@@ -33,6 +33,8 @@ public class Program extends AST{
         classDefinitions.add(new ObjectClassDef());
         for (ClassDef classDef : classDefinitions) {
             st.addClassDef(classDef);
+        }
+        for (ClassDef classDef : classDefinitions) {
             String superClassName = classDef.getSuperClass();
             if (superClassName != null) {
                 ClassDef superClassDef = st.getClassDef(superClassName);
@@ -56,7 +58,7 @@ public class Program extends AST{
         }
         globalVariableDefinitions.forEach(st::addGlobalDef);
         functionDefinitions.forEach(functionDef -> functionDef.checkType(st));
-        classDefinitions.forEach(classDef -> classDef.checkType(st));
+        classDefinitions.forEach(classDef -> classDef.  checkType(st));
         globalVariableDefinitions.forEach(variableDef -> variableDef.checkType(st));
 
     }
