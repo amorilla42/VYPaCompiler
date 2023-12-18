@@ -17,6 +17,8 @@ public class ParamDefList extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
-
+        if (parameters != null) {
+            parameters.forEach(ast -> ast.checkType(st));
+        }
     }
 }

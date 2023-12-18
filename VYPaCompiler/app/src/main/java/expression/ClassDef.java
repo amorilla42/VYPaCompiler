@@ -5,6 +5,15 @@ import tables.SymbolTable;
 import java.util.List;
 
 public class ClassDef extends AST {
+    private ClassDef superClassDef;
+    private String name;
+    private String superClass;
+    private List<VariableDef> variableDefs;
+    private List<MethodDef> methodDefs;
+    public void setSuperClassDef(ClassDef superClassDef) {
+        this.superClassDef = superClassDef;
+    }
+
     public String getName() {
         return name;
     }
@@ -28,10 +37,7 @@ public class ClassDef extends AST {
         this.methodDefs = methodDefs;
     }
 
-    private String name;
-    private String superClass;
-    private List<VariableDef> variableDefs;
-    private List<MethodDef> methodDefs;
+
 
     @Override
     public void checkType(SymbolTable st) {

@@ -18,6 +18,15 @@ public class Statements extends AST {
 
     @Override
     public void checkType(SymbolTable st) {
-
+        boolean returnFound = false;
+        for (AST ast : statements) {
+            ast.checkType(st);
+            if (returnFound) {
+                throw new RuntimeException("no statement after return allowed");
+            }
+            if (ast instanceof ReturnStatement) {
+                returnFound = true;
+            }
+        }
     }
 }

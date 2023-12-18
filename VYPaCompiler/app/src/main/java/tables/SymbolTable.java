@@ -102,12 +102,80 @@ public class SymbolTable {
         return this.currentClassDefinition;
     }
 
+    public void addClassDef(ClassDef def) {
+        if (classDefMap.containsKey(def.getName()) || globalMap.containsKey(def.getName())) {
+            throw new RuntimeException(def.getName() + " already defined");
+        }
+        classDefMap.put(def.getName(), def);
+    }
+    public ClassDef getClassDef(String name) {
+        return classDefMap.get(name);
+    }
+
+    public void addMethodDef(String className, MethodDef def) {
+        methodDefMap.put(className + "." + def.getName(), def);
+    }
+
+    public void addFunctionDef(FunctionDef functionDef) {
+        FunctionData functionData = new FunctionData(functionDef);
+        if (classDefMap.containsKey(functionDef.getIdentifier()) || globalMap.containsKey(functionDef.getIdentifier())) {
+            throw new RuntimeException(functionDef.getIdentifier() + " already defined");
+        }
+        globalMap.put(functionDef.getIdentifier(), functionData);
+    }
+
+    public FunctionDef getFunctionDef(String name) {
+        Data data = find(name);
+        if (data instanceof FunctionData) {
+            return ((FunctionData)data).functionDef;
+        }
+        throw new RuntimeException(name + " is not a function");
+    }
 
 
+    private class FunctionData extends Data {
+        FunctionDef functionDef = null;
 
+        public FunctionData(FunctionDef functionDef) {
+            this.functionDef = functionDef;
+        }
 
+        @Override
+        public String getType() {
+            return functionDef.getType();
+        }
+    }
+    private Data findLocal(String name) {
+        for (LocalScope localScope : localVarScopeStack) {
+            Data local = localScope.map.get(name);
+            if (local != null) {
+                return local;
+            }
+        }
+        return null;
+    }
+    private Data find(String name) {
+        Data loc = findLocal(name);
+        if (loc != null) return loc;
+        return globalMap.get(name);
+    }
 
+    public void addGlobalDef(VariableDef def) {
+        DataVariable e = new DataVariable(def);
+        if (classDefMap.containsKey(def.getIdentifier()) || globalMap.containsKey(def.getIdentifier())) {
+            throw new RuntimeException(def.getIdentifier() + " is already defined");
+        }
+        globalMap.put(def.getIdentifier(), e);
+    }
+    public void addLocalDef(VariableDef variableDef) {
+        DataVariable dataVariable = new DataVariable(variableDef);
+        localVarScopeStack.peek().map.put(variableDef.getIdentifier(), dataVariable);
+    }
 
+    public void addLocalDef(ParamDef paramDef) {
+        DataVariable dataVariable = new DataVariable(paramDef);
+        localVarScopeStack.peek().map.put(paramDef.getName(), dataVariable);
+    }
 
 
 

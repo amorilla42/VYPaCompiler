@@ -3,7 +3,8 @@ package expression;
 import java.util.Collections;
 
 public class ConcatDef extends FunctionDef{
-    public ConcatDef(String type, String identifier, ParamDefList params, CodeBlock body) {
+    private static ParamDefList params;
+    public ConcatDef() {
         super(STRING_TYPE, "+", params, new CodeBlock(Collections.emptyList()));
     }
 }

@@ -21,7 +21,7 @@ public class ParamDef extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
-
+        st.addLocalDef(ParamDef.this);
     }
 
 }
