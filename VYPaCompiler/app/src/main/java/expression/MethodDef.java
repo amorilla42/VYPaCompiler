@@ -6,7 +6,8 @@ public class MethodDef extends AST{
     private String name;
     private ParamDefList params;
     private String type;
-    private CodeBlock body;
+    private Statements body;
+    private ClassDef classDef;
     public String getType() {
         return type;
     }
@@ -20,22 +21,33 @@ public class MethodDef extends AST{
     }
 
 
-    public CodeBlock getBody() {
+    public Statements getBody() {
         return body;
     }
 
+    public void setClassDef(ClassDef classDef) {
+        this.classDef = classDef;
+    }
 
+    public void setBody(Statements body) {
+        this.body = body;
+    }
 
     public MethodDef(String type, String name, ParamDefList params, CodeBlock body) {
         this.type = type;
         this.name = name;
         this.params = params;
-        this.body = body;
+        this.body = new Statements(body.getStatements());
     }
 
 
     @Override
     public void checkType(SymbolTable st) {
+        if (params != null) {
+            params.checkType(st);
+        }
+        body.checkType(st);
+        st.addMethodDef(classDef.getName(), this);
 
     }
 }

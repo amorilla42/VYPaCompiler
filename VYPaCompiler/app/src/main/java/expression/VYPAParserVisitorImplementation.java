@@ -165,7 +165,7 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
             ctx.paramDefList().paramDef().forEach(paramDefContext -> paramDefs.add((ParamDef) visit(paramDefContext)));
         }
         CodeBlock body = (CodeBlock) visit(ctx.codeBlock());
-        return new MethodDef(type, name, new ParamDefList(paramDefs), new CodeBlock(body.getStatements()));
+        return new MethodDef(type, name, new ParamDefList(paramDefs), body);
     }
 
     @Override
@@ -259,6 +259,15 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
     }
 
     @Override
+    public AST visitParamDefList(VYPAParser.ParamDefListContext ctx) {
+        List<ParamDef> params = new ArrayList<>();
+        for (VYPAParser.ParamDefContext param : ctx.paramDef()) {
+            params.add((ParamDef)visit(param));
+        }
+        return new ParamDefList(params);
+    }
+
+    @Override
     public AST visitReturnVoid(VYPAParser.ReturnVoidContext ctx){
         return new ReturnStatement(null);
     }
@@ -271,6 +280,15 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
     @Override
     public AST visitExpressionStatementDeclare(VYPAParser.ExpressionStatementDeclareContext ctx){
         return new ExpressionStatement((Expression) visit(ctx.sideEffectExpression()));
+    }
+
+    @Override
+    public AST visitExpressionList(VYPAParser.ExpressionListContext ctx) {
+        List<Expression> expressionList = new ArrayList<>();
+        for (VYPAParser.ExprContext exprContext : ctx.expr()) {
+            expressionList.add((Expression) visit(exprContext));
+        }
+        return new ExpressionList(expressionList);
     }
 
     @Override
@@ -294,6 +312,8 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
             case "super" -> new SuperFunction(in.getArgs());
             default -> new FunctionInvokeExpression(in.getIdentifier(), in.getArgs());
         };
+
+
     }
 
     @Override
@@ -375,6 +395,19 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
             case "subStr" -> new SubStrFunction(in.getArgs());
             default -> new FunctionInvokeExpression(in.getIdentifier(), in.getArgs());
         };
+    }
+
+    @Override
+    public AST visitInvocation(VYPAParser.InvocationContext ctx) {
+        String funcName = ctx.IDENTIFIER().getText();
+        VYPAParser.ExpressionListContext expressionListContext = ctx.expressionList();
+        ExpressionList params = null;
+        if (expressionListContext != null) {
+            params = (ExpressionList) visit(expressionListContext);
+        } else {
+            params = new ExpressionList(new ArrayList<>());
+        }
+        return new Invocation(funcName, params);
     }
 
     @Override

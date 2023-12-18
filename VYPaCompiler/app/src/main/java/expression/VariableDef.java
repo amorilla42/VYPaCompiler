@@ -34,6 +34,13 @@ public class VariableDef extends AST{
 
     @Override
     public void checkType(SymbolTable st) {
+        st.addLocalDef(this);
+        if (expr != null) {
+            expr.checkType(st);
+            if (!type.equals(expr.getType())) {
+                throw new RuntimeException("type:" +type + " is not " + expr.getType());
+            }
+        }
 
     }
 }

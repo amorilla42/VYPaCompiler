@@ -29,7 +29,9 @@ public class FunctionDef extends Expression{
 
     @Override
     public void checkType(SymbolTable st) {
-        params.checkType(st);
+        if (this.params != null) {
+            params.checkType(st);
+        }
         body.checkType(st);
     }
 
