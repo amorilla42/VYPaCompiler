@@ -16,18 +16,22 @@ public class App {
     public static void main(String[] args) {
 
 
-        String input = "void main(void) { // Program Main function\n" +
-                "int a, res;\n" +
-                "print(\"Enter an integer to compute its factorial:\");\n" +
-                "a = readInt();\n" +
-                "if (a < 0) {\n" +
-                "print(\"\\nFactorial of a negative integer is undefined!\\n\"); }\n" +
-                "else {\n" +
-                "res = 1;\n" +
-                "while (a > 0) {res = res * a; a = a - 1;\n" +
-                "} // endwhile\n" +
-                "print(\"\\nThe result is: \", res, \"\\n\");\n" +
-                "} // endif\n" +
+        String input = "class Shape : Object {\n" +
+                "int id;\n" +
+                "void Shape(void) { print(\"constructor of Shape\"); }\n" +
+                "string toString(void) { return \"instance of Shape \" + (string)this.id; }\n" +
+                "}\n" +
+                "class Rectangle : Shape {\n" +
+                "int height, width;\n" +
+                "string toString(void) { return super.toString()\n" +
+                "+ \" - rectangle \" + (string)(this.area()); }\n" +
+                "int area(void) { return this.height * this.width; }\n" +
+                "}\n" +
+                "void main(void) {\n" +
+                "Rectangle r; r = new Rectangle;\n" +
+                "r.id = 42; r.width = readInt(); r.height = readInt();\n" +
+                "Shape s; s = r;\n" +
+                "print(s.toString());\n" +
                 "} ";
         CharStream stream = CharStreams.fromString(input);
 
@@ -47,9 +51,8 @@ public class App {
         if (abstractSyntaxTree instanceof Program){ //true if the root of the abstract syntax tree is a Program Type Node
             Program program = (Program) abstractSyntaxTree;
             SymbolTable st = new SymbolTable();
-
-            program.checkType(st);
-
+          //  program.checkType(st);
+            int owo = 0;
 
         }
 
