@@ -435,4 +435,24 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         return new FieldAccess(ctx.IDENTIFIER().getText());
     }
 
+    @Override
+    public AST visitSuperConstructor(VYPAParser.SuperConstructorContext ctx){
+        ExpressionList paramlist = null;
+        if (ctx.expressionList() == null)
+            paramlist = new ExpressionList(new ArrayList<>());
+        else
+            paramlist = (ExpressionList) visit(ctx.expressionList());
+        return new SuperConstructorExpression(paramlist);
+    }
+
+    @Override
+    public AST visitSuperMethod(VYPAParser.SuperMethodContext ctx){
+        ExpressionList paramlist = null;
+        if (ctx.expressionList() == null)
+            paramlist = new ExpressionList(new ArrayList<>());
+        else
+            paramlist = (ExpressionList) visit(ctx.expressionList());
+        return new SuperMethodInvoke(ctx.IDENTIFIER().getText(),paramlist);
+    }
+
 }

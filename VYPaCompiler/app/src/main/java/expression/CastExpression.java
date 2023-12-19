@@ -22,6 +22,5 @@ public class CastExpression extends Expression{
 
     @Override
     public String getType() {
-        return null;
-    }
+        return type;  }
 }
