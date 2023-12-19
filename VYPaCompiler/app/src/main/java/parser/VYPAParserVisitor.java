@@ -383,11 +383,19 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(VYPAParser.ExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#literal}.
+	 * Visit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link VYPAParser#literal}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteral(VYPAParser.LiteralContext ctx);
+	T visitIntLiteral(VYPAParser.IntLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link VYPAParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLiteral(VYPAParser.StringLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#expressionList}.
 	 * @param ctx the parse tree

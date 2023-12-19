@@ -9,6 +9,16 @@ import java.util.List;
 
 public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> {
     @Override
+    public AST visitIntLiteral(VYPAParser.IntLiteralContext ctx) {
+        return new IntLiteral(Integer.parseInt(ctx.INTEGER_LIT().getText()));
+    }
+
+    @Override
+    public AST visitStringLiteral(VYPAParser.StringLiteralContext ctx) {
+        return new StringLiteral(ctx.STRING_LIT().getText());
+    }
+
+    @Override
     public AST visitObjParamsEmpty(VYPAParser.ObjParamsEmptyContext ctx) {
         return new ExpressionList(new ArrayList<>());
     }

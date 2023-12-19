@@ -640,15 +640,29 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitExpr(VYPAParser.ExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#literal}.
+	 * Enter a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link VYPAParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void enterLiteral(VYPAParser.LiteralContext ctx);
+	void enterIntLiteral(VYPAParser.IntLiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#literal}.
+	 * Exit a parse tree produced by the {@code IntLiteral}
+	 * labeled alternative in {@link VYPAParser#literal}.
 	 * @param ctx the parse tree
 	 */
-	void exitLiteral(VYPAParser.LiteralContext ctx);
+	void exitIntLiteral(VYPAParser.IntLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link VYPAParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringLiteral(VYPAParser.StringLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringLiteral}
+	 * labeled alternative in {@link VYPAParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringLiteral(VYPAParser.StringLiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#expressionList}.
 	 * @param ctx the parse tree

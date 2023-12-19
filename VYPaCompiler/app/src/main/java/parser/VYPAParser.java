@@ -3343,24 +3343,51 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class LiteralContext extends ParserRuleContext {
-		public Token type;
-		public TerminalNode INTEGER_LIT() { return getToken(VYPAParser.INTEGER_LIT, 0); }
-		public TerminalNode STRING_LIT() { return getToken(VYPAParser.STRING_LIT, 0); }
 		public LiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_literal; }
+	 
+		public LiteralContext() { }
+		public void copyFrom(LiteralContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class StringLiteralContext extends LiteralContext {
+		public Token type;
+		public TerminalNode STRING_LIT() { return getToken(VYPAParser.STRING_LIT, 0); }
+		public StringLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterLiteral(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterStringLiteral(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitLiteral(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitStringLiteral(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitLiteral(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitStringLiteral(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class IntLiteralContext extends LiteralContext {
+		public Token type;
+		public TerminalNode INTEGER_LIT() { return getToken(VYPAParser.INTEGER_LIT, 0); }
+		public IntLiteralContext(LiteralContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterIntLiteral(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitIntLiteral(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitIntLiteral(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3373,17 +3400,19 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INTEGER_LIT:
+				_localctx = new IntLiteralContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(372);
-				((LiteralContext)_localctx).type = match(INTEGER_LIT);
+				((IntLiteralContext)_localctx).type = match(INTEGER_LIT);
 				}
 				break;
 			case STRING_LIT:
+				_localctx = new StringLiteralContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(373);
-				((LiteralContext)_localctx).type = match(STRING_LIT);
+				((StringLiteralContext)_localctx).type = match(STRING_LIT);
 				}
 				break;
 			default:

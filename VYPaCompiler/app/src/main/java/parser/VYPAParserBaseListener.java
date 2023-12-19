@@ -689,13 +689,25 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiteral(VYPAParser.LiteralContext ctx) { }
+	@Override public void enterIntLiteral(VYPAParser.IntLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiteral(VYPAParser.LiteralContext ctx) { }
+	@Override public void exitIntLiteral(VYPAParser.IntLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStringLiteral(VYPAParser.StringLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringLiteral(VYPAParser.StringLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

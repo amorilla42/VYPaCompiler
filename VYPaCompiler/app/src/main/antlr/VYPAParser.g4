@@ -155,8 +155,8 @@ expr:
 // Expressions List
 
 literal:
-    type=INTEGER_LIT
-    |type=STRING_LIT
+    type=INTEGER_LIT            #IntLiteral
+    |type=STRING_LIT            #StringLiteral
     ;
 
 expressionList: expr (COMMA expr)*;
