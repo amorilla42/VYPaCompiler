@@ -232,11 +232,19 @@ public interface VYPAParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifier(VYPAParser.IdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link VYPAParser#fieldAccess}.
+	 * Visit a parse tree produced by the {@code MethodInvocation}
+	 * labeled alternative in {@link VYPAParser#fieldAccess}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFieldAccess(VYPAParser.FieldAccessContext ctx);
+	T visitMethodInvocation(VYPAParser.MethodInvocationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FieldAcces}
+	 * labeled alternative in {@link VYPAParser#fieldAccess}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFieldAcces(VYPAParser.FieldAccesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link VYPAParser#invocation}.
 	 * @param ctx the parse tree

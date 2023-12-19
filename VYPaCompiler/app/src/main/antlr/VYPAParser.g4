@@ -100,8 +100,8 @@ variableStart:
             ;
 
 fieldAccess:
-            DOT invocation
-            |DOT IDENTIFIER
+            DOT invocation      #MethodInvocation
+            |DOT IDENTIFIER     #FieldAcces
             ;
 
 invocation: IDENTIFIER LPAR expressionList? RPAR;

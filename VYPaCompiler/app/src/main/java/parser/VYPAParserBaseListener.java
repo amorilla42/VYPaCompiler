@@ -425,13 +425,25 @@ public class VYPAParserBaseListener implements VYPAParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFieldAccess(VYPAParser.FieldAccessContext ctx) { }
+	@Override public void enterMethodInvocation(VYPAParser.MethodInvocationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFieldAccess(VYPAParser.FieldAccessContext ctx) { }
+	@Override public void exitMethodInvocation(VYPAParser.MethodInvocationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFieldAcces(VYPAParser.FieldAccesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFieldAcces(VYPAParser.FieldAccesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

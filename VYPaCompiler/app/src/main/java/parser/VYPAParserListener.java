@@ -382,15 +382,29 @@ public interface VYPAParserListener extends ParseTreeListener {
 	 */
 	void exitIdentifier(VYPAParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link VYPAParser#fieldAccess}.
+	 * Enter a parse tree produced by the {@code MethodInvocation}
+	 * labeled alternative in {@link VYPAParser#fieldAccess}.
 	 * @param ctx the parse tree
 	 */
-	void enterFieldAccess(VYPAParser.FieldAccessContext ctx);
+	void enterMethodInvocation(VYPAParser.MethodInvocationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link VYPAParser#fieldAccess}.
+	 * Exit a parse tree produced by the {@code MethodInvocation}
+	 * labeled alternative in {@link VYPAParser#fieldAccess}.
 	 * @param ctx the parse tree
 	 */
-	void exitFieldAccess(VYPAParser.FieldAccessContext ctx);
+	void exitMethodInvocation(VYPAParser.MethodInvocationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FieldAcces}
+	 * labeled alternative in {@link VYPAParser#fieldAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterFieldAcces(VYPAParser.FieldAccesContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FieldAcces}
+	 * labeled alternative in {@link VYPAParser#fieldAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitFieldAcces(VYPAParser.FieldAccesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link VYPAParser#invocation}.
 	 * @param ctx the parse tree

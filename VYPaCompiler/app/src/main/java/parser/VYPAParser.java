@@ -2100,26 +2100,53 @@ public class VYPAParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FieldAccessContext extends ParserRuleContext {
-		public TerminalNode DOT() { return getToken(VYPAParser.DOT, 0); }
-		public InvocationContext invocation() {
-			return getRuleContext(InvocationContext.class,0);
-		}
-		public TerminalNode IDENTIFIER() { return getToken(VYPAParser.IDENTIFIER, 0); }
 		public FieldAccessContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fieldAccess; }
+	 
+		public FieldAccessContext() { }
+		public void copyFrom(FieldAccessContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FieldAccesContext extends FieldAccessContext {
+		public TerminalNode DOT() { return getToken(VYPAParser.DOT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(VYPAParser.IDENTIFIER, 0); }
+		public FieldAccesContext(FieldAccessContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterFieldAccess(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterFieldAcces(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitFieldAccess(this);
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitFieldAcces(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitFieldAccess(this);
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitFieldAcces(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class MethodInvocationContext extends FieldAccessContext {
+		public TerminalNode DOT() { return getToken(VYPAParser.DOT, 0); }
+		public InvocationContext invocation() {
+			return getRuleContext(InvocationContext.class,0);
+		}
+		public MethodInvocationContext(FieldAccessContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).enterMethodInvocation(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof VYPAParserListener ) ((VYPAParserListener)listener).exitMethodInvocation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof VYPAParserVisitor ) return ((VYPAParserVisitor<? extends T>)visitor).visitMethodInvocation(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2132,6 +2159,7 @@ public class VYPAParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
+				_localctx = new MethodInvocationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(269);
@@ -2141,6 +2169,7 @@ public class VYPAParser extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new FieldAccesContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(271);

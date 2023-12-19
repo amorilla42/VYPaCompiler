@@ -51,7 +51,7 @@ public class App {
         if (abstractSyntaxTree instanceof Program){ //true if the root of the abstract syntax tree is a Program Type Node
             Program program = (Program) abstractSyntaxTree;
             SymbolTable st = new SymbolTable();
-          //  program.checkType(st);
+            program.checkType(st);
             int owo = 0;
 
         }

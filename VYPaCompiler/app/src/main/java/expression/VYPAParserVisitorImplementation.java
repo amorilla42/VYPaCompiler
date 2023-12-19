@@ -424,4 +424,15 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
     public AST visitIdentifier(VYPAParser.IdentifierContext ctx) {
         return new IdentifierExpression(ctx.IDENTIFIER().getText());
     }
+
+    @Override
+    public AST visitMethodInvocation(VYPAParser.MethodInvocationContext ctx){
+        return visit(ctx.invocation());
+    }
+
+    @Override
+    public AST visitFieldAcces(VYPAParser.FieldAccesContext ctx){
+        return new FieldAccess(ctx.IDENTIFIER().getText());
+    }
+
 }
