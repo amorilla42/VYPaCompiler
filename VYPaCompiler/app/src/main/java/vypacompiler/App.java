@@ -8,6 +8,7 @@ import parser.VYPAParser;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import parser.VYPAParserVisitor;
+import tables.SymbolTable;
 
 
 public class App {
@@ -15,9 +16,19 @@ public class App {
     public static void main(String[] args) {
 
 
-        String input = "int a=4;" +
-                " class obj{ int sa; int func3(){sa = 5; err = \"4\"; } } " +
-                "void main() { if (dddd) usted(); else locasa(); return 0;}";
+        String input = "void main(void) { // Program Main function\n" +
+                "int a, res;\n" +
+                "print(\"Enter an integer to compute its factorial:\");\n" +
+                "a = readInt();\n" +
+                "if (a < 0) {\n" +
+                "print(\"\\nFactorial of a negative integer is undefined!\\n\"); }\n" +
+                "else {\n" +
+                "res = 1;\n" +
+                "while (a > 0) {res = res * a; a = a - 1;\n" +
+                "} // endwhile\n" +
+                "print(\"\\nThe result is: \", res, \"\\n\");\n" +
+                "} // endif\n" +
+                "} ";
         CharStream stream = CharStreams.fromString(input);
 
         VYPALexer lexer = new VYPALexer(stream);
@@ -33,16 +44,13 @@ public class App {
 
 
 
-
-
         if (abstractSyntaxTree instanceof Program){ //true if the root of the abstract syntax tree is a Program Type Node
             Program program = (Program) abstractSyntaxTree;
-            System.out.println(program.getGlobalVariableDefinitions().get(0).getIdentifier());
-            System.out.println(program.getFunctionDefinitions().get(0).getType());
-            System.out.println(program.getClassDefinitions().get(0).getName());
-            System.out.println(program.getClassDefinitions().get(0).getSuperClass());
-            System.out.println(program.getClassDefinitions().get(0).getMethodDefs().get(0).getName());
-            System.out.println("i am a program");
+            SymbolTable st = new SymbolTable();
+
+            program.checkType(st);
+
+
         }
 
         System.out.println(tree.toStringTree(parser));
