@@ -89,6 +89,6 @@ public class BinaryExpression extends Expression{
 
     @Override
     public String getType() {
-        return null;
+        return type;
     }
 }
