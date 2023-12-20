@@ -30,6 +30,6 @@ public class NewObjExpression extends Expression{
 
     @Override
     public String getType() {
-        return null;
+        return className;
     }
 }

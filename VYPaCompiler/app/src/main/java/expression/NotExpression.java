@@ -21,7 +21,7 @@ public class NotExpression extends Expression {
 
     @Override
     public String getType() {
-        return null;
+        return BOOL_TYPE;
     }
 
 
