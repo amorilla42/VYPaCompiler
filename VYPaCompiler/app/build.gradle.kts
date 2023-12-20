@@ -35,14 +35,14 @@ application {
 }
 
 tasks {
-
+/*
     generateGrammarSource{
         //maxHeapSize="5";
         val pkg = "parser"
         arguments = arguments + listOf("-package", pkg) + listOf("-visitor")
         outputDirectory = file("src/main/java/parser")
     }
-
+*/
     jar {
         manifest.attributes["Main-Class"]=application.mainClass
 
