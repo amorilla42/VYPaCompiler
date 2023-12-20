@@ -1,17 +1,22 @@
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */
 package expression;
 
+import exceptions.SemanticException;
 import tables.SymbolTable;
 
 public class LengthFunction extends FunctionInvokeExpression{
     @Override
     public void checkType(SymbolTable st) {
         if (getArgs().getExpressions().size() != 1) {
-            throw new RuntimeException("length expects one string argument!");
+            throw new SemanticException("length expects one string argument!");
         }
         Expression e = getArgs().getExpressions().get(0);
         e.checkType(st);
         if (!e.getType().equals(STRING_TYPE)) {
-            throw new RuntimeException("length expects one string argument!");
+            throw new SemanticException("length expects one string argument!");
         }
     }
 

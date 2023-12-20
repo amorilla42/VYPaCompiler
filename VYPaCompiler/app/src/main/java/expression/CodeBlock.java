@@ -1,5 +1,10 @@
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */
 package expression;
 
+import exceptions.SyntaxException;
 import tables.SymbolTable;
 
 import java.util.List;
@@ -19,11 +24,10 @@ public class CodeBlock extends AST{
     @Override
     public void checkType(SymbolTable st) {
         boolean foundReturn = false;
-
         st.pushLocalStack();
         for (AST ast : statements) {
             if (foundReturn) {
-                throw new RuntimeException("Found statement following return!");
+                throw new SyntaxException("Found statement following return.");
             }
             ast.checkType(st);
             if (ast instanceof ReturnStatement) {

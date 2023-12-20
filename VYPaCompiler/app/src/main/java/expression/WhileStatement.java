@@ -1,3 +1,7 @@
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */
 package expression;
 
 import tables.SymbolTable;
@@ -24,5 +28,6 @@ public class WhileStatement extends AST{
         if (condition != null) {
             condition.checkType(st);
         }
+        statement.checkType(st);
     }
 }

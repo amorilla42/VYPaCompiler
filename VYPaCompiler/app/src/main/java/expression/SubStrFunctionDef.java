@@ -1,4 +1,7 @@
-package expression;
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */package expression;
 
 import java.util.ArrayList;
 import java.util.Arrays;

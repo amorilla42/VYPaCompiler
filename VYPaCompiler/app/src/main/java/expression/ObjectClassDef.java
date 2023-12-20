@@ -1,10 +1,17 @@
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */
 package expression;
+
+import tables.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ObjectClassDef extends ClassDef{
+
     private static List<MethodDef> methodDefs;
     private static List<VariableDef> variableDefs;
 
@@ -18,5 +25,14 @@ public class ObjectClassDef extends ClassDef{
     }
     public ObjectClassDef() {
         super("Object", null, variableDefs, methodDefs);
+    }
+    private List<MethodDef> allMethods = methodDefs.subList(0,2);
+    @Override
+    public List<MethodDef> getAllMethods() {
+        return allMethods;
+    }
+    @Override
+    public void checkType(SymbolTable st) {
+        constructorDef = methodDefs.get(2);
     }
 }

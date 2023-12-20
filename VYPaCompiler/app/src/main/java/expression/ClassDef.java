@@ -1,6 +1,12 @@
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */
 package expression;
 
 import codeGenerator.CodeGenerator;
+import exceptions.SemanticException;
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 import java.util.ArrayList;
@@ -15,7 +21,7 @@ public class ClassDef extends AST {
     private String superClass;
     private List<VariableDef> variableDefs;
     private List<MethodDef> methodDefs;
-    private MethodDef constructorDef = null;
+    protected MethodDef constructorDef = null;
     public ClassDef getSuperClassDef() {
         return superClassDef;
     }
@@ -113,19 +119,28 @@ public class ClassDef extends AST {
     }
 
     @Override
+    /**
+     * This method checks the type of the class and its methods.
+     * It also checks for semantic errors like multiple constructors, superclass name conflicts, and missing constructors.
+     * If no constructor is defined, it creates an implicit super constructor.
+     * It also checks for field name conflicts with superclass.
+     *
+     * @param st The symbol table to use for type checking.
+     * @throws SemanticException If there are multiple constructors, superclass name conflicts, missing constructors, or field name conflicts with superclass.
+     */
     public void checkType(SymbolTable st) {
         st.startClassDef(this);
         for (MethodDef methodDef : methodDefs) {
             methodDef.checkType(st);
             if (methodDef.getName().equals(name)) {
                 if (constructorDef != null) {
-                    throw new RuntimeException("Multiple constructors defined");
+                    throw new SemanticException("Multiple constructors defined in class");
                 } else {
                     constructorDef = methodDef;
                     ClassDef supClasDef = superClassDef;
                     while (supClasDef != null) {
                         if (supClasDef.getName().equals(name)) {
-                            throw new RuntimeException("Class " + name + " has the same name as its superclass");
+                            throw new SemanticException("Class " + name + " has the same name as its superclass");
                         }
                         supClasDef = supClasDef.getSuperClassDef();
                     }
@@ -136,16 +151,16 @@ public class ClassDef extends AST {
         if (superClassDef != null && superClassDef.getConstructorDef() != null) {
             if (!superClassDef.getConstructorDef().getParams().getParameters().isEmpty()) {
                 if (constructorDef == null) {
-                    throw new RuntimeException("Missing constructor for superclass in " + name);
+                    throw new SemanticException("Missing constructor for superclass in " + name);
                 } else {
                     List<AST> bodyStatements = constructorDef.getBody().getStatements();
                     if (bodyStatements == null || bodyStatements.isEmpty() || !(bodyStatements.get(0) instanceof SuperFunction)) {
-                        throw new RuntimeException("Missing constructor for superclass in " + name);
+                        throw new SemanticException("Missing constructor for superclass in " + name);
                     }
                 }
             }
         }
-        if (constructorDef == null) { // create implicit super constructor
+        if (constructorDef == null) { 
             SuperFunction superFunction = new SuperFunction(new ExpressionList(Collections.emptyList()));
             superFunction.setSuperClass(superClassDef);
             constructorDef = new MethodDef(AST.VOID_TYPE, name, new ParamDefList(Collections.emptyList()), new CodeBlock(Collections.singletonList(superFunction)));
@@ -165,7 +180,7 @@ public class ClassDef extends AST {
         for (VariableDef variableDef : variableDefs) {
             variableDef.checkType(st);
             if (superClassDef !=null && superClassDef.getFieldIndex(variableDef.getIdentifier()) != -1) {
-                throw new RuntimeException("Field " + variableDef.getIdentifier() + " is already defined in superclass!");
+                throw new SemanticException("Field " + variableDef.getIdentifier() + " is already defined in superclass!");
             }
         }
         st.endClassDef();

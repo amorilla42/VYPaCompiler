@@ -1,5 +1,10 @@
+/*
+ * Project: VYPALanguage compileur
+ * Author: NGUYEN Huu TU xnguye08 and Morilla Andrés xmoril01
+ */
 package tables;
 
+import exceptions.SemanticException;
 import expression.*;
 import java.util.*;
 
@@ -111,7 +116,7 @@ public class SymbolTable {
 
     public void addClassDef(ClassDef def) {
         if (classDefMap.containsKey(def.getName()) || globalMap.containsKey(def.getName())) {
-            throw new RuntimeException(def.getName() + " already defined");
+            throw new SemanticException(def.getName() + " already defined");
         }
         classDefMap.put(def.getName(), def);
     }
@@ -126,7 +131,7 @@ public class SymbolTable {
     public void addFunctionDef(FunctionDef functionDef) {
         FunctionData functionData = new FunctionData(functionDef);
         if (classDefMap.containsKey(functionDef.getIdentifier()) || globalMap.containsKey(functionDef.getIdentifier())) {
-            throw new RuntimeException(functionDef.getIdentifier() + " already defined");
+            throw new SemanticException(functionDef.getIdentifier() + " already defined");
         }
         globalMap.put(functionDef.getIdentifier(), functionData);
     }
@@ -136,7 +141,7 @@ public class SymbolTable {
         if (data instanceof FunctionData) {
             return ((FunctionData)data).functionDef;
         }
-        throw new RuntimeException(name + " is not a function");
+        throw new SemanticException(name + " is not a function");
     }
 
 
@@ -170,7 +175,7 @@ public class SymbolTable {
     public void addGlobalDef(VariableDef def) {
         DataVariable e = new DataVariable(def);
         if (classDefMap.containsKey(def.getIdentifier()) || globalMap.containsKey(def.getIdentifier())) {
-            throw new RuntimeException(def.getIdentifier() + " is already defined");
+            throw new SemanticException(def.getIdentifier() + " is already defined");
         }
         globalMap.put(def.getIdentifier(), e);
     }
@@ -202,11 +207,11 @@ public class SymbolTable {
     public String getFieldType(String className, String field) {
         ClassDef classDef = classDefMap.get(className);
         if (classDef == null) {
-            throw new RuntimeException("Unknown class");
+            throw new SemanticException("Unknown class");
         }
         int idx = classDef.getFieldIndex(field);
         if (idx == -1) {
-            throw new RuntimeException("Unknown field: "+field+" | Class: " + classDef.getName());
+            throw new SemanticException("Unknown field: "+field+" | Class: " + classDef.getName());
         }
         return classDef.getAllFields().get(idx).getType();
     }
@@ -237,7 +242,7 @@ public class SymbolTable {
     }
     public boolean checkTypes(ParamDefList left, ExpressionList right) {
         if (left.getParameters().size() != right.getExpressions().size()) {
-            throw new RuntimeException("Parameters count is incorrect");
+            throw new SemanticException("Parameters count is incorrect");
         }
         for (int i = 0; i < left.getParameters().size(); i++) {
             if (!checkType(left.getParameters().get(i).getType(), right.getExpressions().get(i).getType())) {
