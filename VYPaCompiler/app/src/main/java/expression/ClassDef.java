@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import exceptions.SemanticException;
 import exceptions.SemanticTypeException;
 import tables.SymbolTable;
@@ -183,5 +184,9 @@ public class ClassDef extends AST {
             }
         }
         st.endClassDef();
+    }
+
+    public void defineConstants(SymbolTable st, CodeGenerator codeGen) {
+        
     }
 }

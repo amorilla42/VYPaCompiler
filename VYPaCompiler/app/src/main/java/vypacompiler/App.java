@@ -4,6 +4,7 @@
  */
 package vypacompiler;
 
+import codeGenerator.CodeGenerator;
 import exceptions.CustomErrorStrategy;
 import exceptions.CustomException;
 import expression.AST;
@@ -69,7 +70,10 @@ public class App {
                 Program program = (Program) abstractSyntaxTree;
                 SymbolTable st = new SymbolTable();
                 program.checkType(st);
-               // GENERATE CODE
+                CodeGenerator codeGen = new CodeGenerator(st);
+                program.generateCode(st,codeGen);
+                for (String s : codeGen.getTargetCode())
+                    System.out.println(s);
 
             }else {
                 System.err.println("the inputFile is not a VYPALanguage program");

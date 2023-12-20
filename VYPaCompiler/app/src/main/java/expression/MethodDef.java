@@ -54,4 +54,12 @@ public class MethodDef extends AST{
         st.addMethodDef(classDef.getName(), this);
 
     }
+
+    @Override
+    public void generateCode(SymbolTable st, codeGenerator.CodeGenerator cg){
+
+        return;
+    }
+
+
 }

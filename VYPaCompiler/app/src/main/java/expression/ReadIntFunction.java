@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import exceptions.SemanticException;
 import tables.SymbolTable;
 
@@ -22,5 +23,10 @@ public class ReadIntFunction extends FunctionInvokeExpression{
     @Override
     public String getType() {
         return INT_TYPE;
+    }
+
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        cg.addLine("READI $0");
     }
 }

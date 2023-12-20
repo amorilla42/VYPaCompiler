@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 public class IfStatement extends AST{
@@ -20,5 +21,13 @@ public class IfStatement extends AST{
         condition.checkType(st);
         statement.checkType(st);
 
+    }
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        String endLabel = st.getUniqueLabel();
+        this.condition.generateCode(st,cg);
+        cg.addLine("JUMPZ "+endLabel+" $0");
+        this.statement.generateCode(st,cg);
+        cg.addLine("LABEL "+endLabel);
     }
 }

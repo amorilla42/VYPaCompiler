@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import exceptions.SyntaxException;
 import tables.SymbolTable;
 
@@ -36,5 +37,11 @@ public class CodeBlock extends AST{
         }
         st.popLocalStack();
 
+    }
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        for (AST ast : statements) {
+            ast.generateCode(st,cg);
+        }
     }
 }

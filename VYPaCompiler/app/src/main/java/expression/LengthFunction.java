@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import exceptions.SemanticException;
 import tables.SymbolTable;
 
@@ -27,5 +28,11 @@ public class LengthFunction extends FunctionInvokeExpression{
     @Override
     public String getType(){
         return INT_TYPE;
+    }
+
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        getArgs().getExpressions().get(0).generateCode(st, cg);
+        cg.addLine("GETSIZE $0 $0");
     }
 }

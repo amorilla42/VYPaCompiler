@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 public class IfElseStatement extends AST{
@@ -26,5 +27,16 @@ public class IfElseStatement extends AST{
 
     }
 
-
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        String elseLabel = st.getUniqueLabel();
+        String endLabel = st.getUniqueLabel();
+        this.condition.generateCode(st,cg);
+        cg.addLine("JUMPZ "+elseLabel+" $0");
+        this.statement.generateCode(st,cg);
+        cg.addLine("JUMP "+endLabel);
+        cg.addLine("LABEL "+elseLabel);
+        this.elseStatement.generateCode(st,cg);
+        cg.addLine("LABEL "+endLabel);
+    }
 }

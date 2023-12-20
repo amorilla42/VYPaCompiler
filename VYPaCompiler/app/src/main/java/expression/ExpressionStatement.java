@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 public class ExpressionStatement extends AST{
@@ -21,5 +22,11 @@ public class ExpressionStatement extends AST{
     @Override
     public void checkType(SymbolTable st) {
         expression.checkType(st);
+    }
+
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        expression.generateCode(st,cg);
+        cg.getAddrTable().clearTemps();
     }
 }
