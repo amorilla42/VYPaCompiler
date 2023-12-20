@@ -1,5 +1,6 @@
 // Generated from VYPALexer.g4 by ANTLR 4.13.0
 package parser;
+import exceptions.LexicalException;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -311,6 +312,15 @@ public class VYPALexer extends Lexer {
 		_decisionToDFA = new DFA[_ATN.getNumberOfDecisions()];
 		for (int i = 0; i < _ATN.getNumberOfDecisions(); i++) {
 			_decisionToDFA[i] = new DFA(_ATN.getDecisionState(i), i);
+		}
+	}
+	@Override
+	public Token emit() {
+		switch (getType()) {
+			case ERROR_TOKEN:
+				throw new LexicalException("Invalid token");
+			default:
+				return super.emit();
 		}
 	}
 }
