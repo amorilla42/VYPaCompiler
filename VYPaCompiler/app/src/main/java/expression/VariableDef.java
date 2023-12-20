@@ -57,8 +57,6 @@ public class VariableDef extends AST{
         }else{
             if (type.equals(INT_TYPE))
                 cg.addLine("SET "+addr.toCode()+" 0");
-            else if (type.equals(STRING_TYPE))
-                throw new SemanticTypeException("String must be initialized");
         }
     }
 }
