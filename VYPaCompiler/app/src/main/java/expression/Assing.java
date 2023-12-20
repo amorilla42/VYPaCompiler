@@ -38,7 +38,6 @@ public class Assing extends Expression{
 
     @Override
     public void generateCode(SymbolTable st, CodeGenerator cg) {
-        //TODO: assing to a class attribute
         if (this.leftSide instanceof IdentifierExpression){
             cg.assingVariable((IdentifierExpression) this.leftSide,this.rightSide);
         }
