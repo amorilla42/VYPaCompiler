@@ -15,15 +15,43 @@ import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 import parser.VYPAParserVisitor;
 import tables.SymbolTable;
+import exceptions.Error;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class App {
 
     public static void main(String[] args) {
+        if (args.length == 0) {
+            System.err.println("argument missing: input file");
+            System.exit(Error.VALUE_COMPILER);
+        }
+        if (args.length > 2) {
+            System.err.println("too many arguments");
+            System.exit(Error.VALUE_COMPILER);
+        }
 
+        String inFile = args[0];
+        String outFile = null;
+        if (args.length > 1) {
+             outFile = args[1];
+        }
+        else {
+            outFile = "out.vc";
+        }
+
+        PrintWriter printWriter = null;
         try {
-            String input = "int ¤;";
-            CharStream stream = CharStreams.fromString(input);
+            printWriter = new PrintWriter(new FileWriter(outFile));
+        } catch (Exception e) {
+            System.err.println("cannot write to file");
+            System.exit(Error.VALUE_COMPILER);
+        }
+        try {
+            CharStream stream = CharStreams.fromString(inFile);
 
             VYPALexer lexer = new VYPALexer(stream);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -41,11 +69,14 @@ public class App {
                 Program program = (Program) abstractSyntaxTree;
                 SymbolTable st = new SymbolTable();
                 program.checkType(st);
-                int owo = 0;
+               // GENERATE CODE
 
+            }else {
+                System.err.println("the inputFile is not a VYPALanguage program");
+                System.exit(Error.VALUE_SYNTAX);
             }
 
-            System.out.println(tree.toStringTree(parser));
+            //System.out.println(tree.toStringTree(parser));
 
         } catch (CustomException e) {
             System.err.println(e.getReturnValue());
