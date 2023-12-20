@@ -41,7 +41,7 @@ public class CastExpression extends Expression{
                 || toBeCast.getType().equals(STRING_TYPE) && type.equals(STRING_TYPE)){
             return ;//it is already in the correct type
         } else
-            throw new RuntimeException("Cant cast " + toBeCast.getType() + " to " + type);
+            throw new SemanticTypeException("Cant cast " + toBeCast.getType() + " to " + type);
     }
 
 

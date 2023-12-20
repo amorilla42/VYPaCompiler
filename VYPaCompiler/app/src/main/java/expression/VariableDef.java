@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.Address;
 import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
@@ -46,6 +47,18 @@ public class VariableDef extends AST{
                 throw new SemanticTypeException("type:" +type + " is not " + expr.getType());
             }
         }
+    }
 
+    @Override
+    public void generateCode(SymbolTable st, codeGenerator.CodeGenerator cg) {
+        Address addr = cg.getAddrTable().addLocal(this.identifier);
+        if (expr != null) {
+            cg.addLine("SET "+addr.toCode()+" "+cg.generateExpression(expr));
+        }else{
+            if (type.equals(INT_TYPE))
+                cg.addLine("SET "+addr.toCode()+" 0");
+            else if (type.equals(STRING_TYPE))
+                throw new SemanticTypeException("String must be initialized");
+        }
     }
 }

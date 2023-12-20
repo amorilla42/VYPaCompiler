@@ -21,7 +21,8 @@ public class IntLiteral extends Expression{
 
     @Override
     public void generateCode(SymbolTable st, CodeGenerator cg) {
-        super.generateCode(st, cg);
+
+        cg.addLine("SET $0 "+value);
     }
 
     @Override

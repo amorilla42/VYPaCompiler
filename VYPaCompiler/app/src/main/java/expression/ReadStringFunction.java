@@ -23,4 +23,9 @@ public class ReadStringFunction extends FunctionInvokeExpression{
     public String getType() {
         return STRING_TYPE;
     }
+
+    @Override
+    public void generateCode(SymbolTable st, codeGenerator.CodeGenerator cg) {
+        cg.addLine("READS $0");
+    }
 }

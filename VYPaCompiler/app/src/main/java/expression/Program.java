@@ -107,7 +107,15 @@ public class Program extends AST{
             fun.generateCode(st, codeGen);
             codeGen.addLine("");
         }
-
+        codeGen.addLine("# END FUNCTION DEFINITIONS");
+        codeGen.addLine("");
+        codeGen.addLine("LABEL @initExecution");
+        if (!this.globalVariableDefinitions.isEmpty()){
+            codeGen.addLine("# SAVE STORAGE OF GLOBAL VARIABLES");
+            codeGen.addLine("ADDI $SP $SP "+this.globalVariableDefinitions.size());
+        }
+        codeGen.addLine("ADDI $SP $SP 1"); //for the return address of PC
+        codeGen.addLine("CALL [$SP-1] main");
+        codeGen.addLine("LABEL @endExecution");//end of the program
     }
-
 }

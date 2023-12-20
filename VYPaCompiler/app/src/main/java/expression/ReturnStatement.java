@@ -4,6 +4,7 @@
  */
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 public class ReturnStatement extends AST{
@@ -26,6 +27,12 @@ public class ReturnStatement extends AST{
         if (exp != null) {
             exp.checkType(st);
         }
+    }
 
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        if (exp != null) {
+            cg.addLine("SET $0 "+cg.generateExpression(exp));
+        }
+        cg.addLine("RETURN [$SP-1]");
     }
 }

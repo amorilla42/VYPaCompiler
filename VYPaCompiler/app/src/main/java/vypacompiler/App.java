@@ -23,7 +23,7 @@ public class App {
     public static void main(String[] args) {
 
         try {
-            String input = "int ¤;";
+            String input = "int a; int main() { int b; b = 1; a = 2; return 0; }";
             CharStream stream = CharStreams.fromString(input);
 
             VYPALexer lexer = new VYPALexer(stream);
@@ -44,7 +44,8 @@ public class App {
                 program.checkType(st);
                 CodeGenerator codeGen = new CodeGenerator(st);
                 program.generateCode(st,codeGen);
-                int owo = 0;
+                for (String s : codeGen.getTargetCode())
+                    System.out.println(s);
 
             }
 
@@ -54,7 +55,6 @@ public class App {
             System.err.println(e.getReturnValue());
             System.err.println(e.getMessage());
             System.exit(e.getReturnValue());
-
         }
 
     }

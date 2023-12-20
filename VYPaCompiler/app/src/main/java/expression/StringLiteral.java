@@ -27,4 +27,9 @@ public class StringLiteral extends Expression {
     public String getType() {
         return STRING_TYPE;
     }
+
+    @Override
+    public void generateCode(SymbolTable st, codeGenerator.CodeGenerator cg) {
+        cg.addLine("SET $0 "+this.value);
+    }
 }

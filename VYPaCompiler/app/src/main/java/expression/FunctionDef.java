@@ -53,7 +53,7 @@ public class FunctionDef extends Expression{
 
         //parameters definitions
         this.params.generateCode(st,cg);
-        //Params are in the local adresses and stored in user register in reverse
+        //Params are in the local addresses and stored in user register in reverse
         // if N is the size of params, the first one is stored in ($SP-N-1)
         // and the last parameter is in ($SP-2)
 
