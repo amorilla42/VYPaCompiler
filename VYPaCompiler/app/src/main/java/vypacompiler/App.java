@@ -1,5 +1,6 @@
 package vypacompiler;
 
+import codeGenerator.CodeGenerator;
 import expression.AST;
 import expression.Program;
 import expression.VYPAParserVisitorImplementation;
@@ -16,23 +17,7 @@ public class App {
     public static void main(String[] args) {
 
 
-        String input = "class Shape : Object {\n" +
-                "int id;\n" +
-                "void Shape(void) { print(\"constructor of Shape\"); }\n" +
-                "string toString(void) { return \"instance of Shape \" + (string)this.id; }\n" +
-                "}\n" +
-                "class Rectangle : Shape {\n" +
-                "int height, width;\n" +
-                "string toString(void) { return super.toString()\n" +
-                "+ \" - rectangle \" + (string)(this.area()); }\n" +
-                "int area(void) { return this.height * this.width; }\n" +
-                "}\n" +
-                "void main(void) {\n" +
-                "Rectangle r; r = new Rectangle;\n" +
-                "r.id = 42; r.width = readInt(); r.height = readInt();\n" +
-                "Shape s; s = r;\n" +
-                "print(s.toString());\n" +
-                "} ";
+        String input = "void main(void) {int a; if(1==1){int a,b;}}";
         CharStream stream = CharStreams.fromString(input);
 
         VYPALexer lexer = new VYPALexer(stream);
@@ -52,6 +37,8 @@ public class App {
             Program program = (Program) abstractSyntaxTree;
             SymbolTable st = new SymbolTable();
             program.checkType(st);
+            CodeGenerator codeGen = new CodeGenerator(st);
+            program.generateCode(st,codeGen);
             int owo = 0;
 
         }

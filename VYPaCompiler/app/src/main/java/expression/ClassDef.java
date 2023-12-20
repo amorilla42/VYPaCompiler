@@ -1,5 +1,6 @@
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 import java.util.ArrayList;
@@ -168,5 +169,9 @@ public class ClassDef extends AST {
             }
         }
         st.endClassDef();
+    }
+
+    public void defineConstants(SymbolTable st, CodeGenerator codeGen) {
+        
     }
 }
