@@ -52,9 +52,7 @@ public class App {
             System.exit(Error.VALUE_COMPILER);
         }
         try {
-
-
-            VYPAParser parser = createParser(inFile);
+            VYPAParser parser = parserFromFile(inFile);
             parser.setErrorHandler(new CustomErrorStrategy());
             ParseTree tree = parser.program();
 
@@ -68,16 +66,15 @@ public class App {
                 program.checkType(st);
                 CodeGenerator codeGen = new CodeGenerator(st);
                 program.generateCode(st,codeGen);
-                for (String s : codeGen.getTargetCode())
-                    System.out.println(s);
-
+                for (String s : codeGen.getTargetCode()){
+                    printWriter.write(s);
+                    printWriter.write("\n");
+                }
+                printWriter.close();
             }else {
                 System.err.println("the inputFile is not a VYPALanguage program");
                 System.exit(Error.VALUE_SYNTAX);
             }
-
-            //System.out.println(tree.toStringTree(parser));
-
         } catch (CustomException e) {
             System.err.println(e.getReturnValue());
             System.err.println(e.getMessage());
@@ -86,19 +83,17 @@ public class App {
 
     }
 
-    private static VYPAParser createParser(String filename) {
+    private static VYPAParser parserFromFile(String filename) {
         VYPAParser parser = null;
-
         try {
             CharStream input = CharStreams.fromFileName(filename);
             VYPALexer lexer = new VYPALexer(input);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             parser = new VYPAParser(tokens);
-            parser.setErrorHandler(new CustomErrorStrategy());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("cannot read the input");
+            System.exit(Error.VALUE_COMPILER);
         }
-
         return parser;
     }
 }
