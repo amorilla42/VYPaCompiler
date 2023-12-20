@@ -52,13 +52,9 @@ public class App {
             System.exit(Error.VALUE_COMPILER);
         }
         try {
-            CharStream stream = CharStreams.fromString(inFile);
-
-            VYPALexer lexer = new VYPALexer(stream);
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
 
 
-            VYPAParser parser = new VYPAParser(tokens);
+            VYPAParser parser = createParser(inFile);
             parser.setErrorHandler(new CustomErrorStrategy());
             ParseTree tree = parser.program();
 
@@ -88,5 +84,21 @@ public class App {
             System.exit(e.getReturnValue());
         }
 
+    }
+
+    private static VYPAParser createParser(String filename) {
+        VYPAParser parser = null;
+
+        try {
+            CharStream input = CharStreams.fromFileName(filename);
+            VYPALexer lexer = new VYPALexer(input);
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            parser = new VYPAParser(tokens);
+            parser.setErrorHandler(new CustomErrorStrategy());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return parser;
     }
 }
