@@ -24,5 +24,6 @@ public class WhileStatement extends AST{
         if (condition != null) {
             condition.checkType(st);
         }
+        statement.checkType(st);
     }
 }
