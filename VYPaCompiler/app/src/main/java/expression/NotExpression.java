@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 public class NotExpression extends Expression {
@@ -13,7 +14,7 @@ public class NotExpression extends Expression {
     public void checkType(SymbolTable st) {
         toBeNegated.checkType(st);
         if (!toBeNegated.getType().equals(BOOL_TYPE)) {
-            throw new RuntimeException("non boolean");
+            throw new SemanticTypeException("non boolean");
         }
 
     }

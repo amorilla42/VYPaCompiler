@@ -1,5 +1,7 @@
 package expression;
 
+import exceptions.SemanticException;
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 import java.util.ArrayList;
@@ -118,13 +120,13 @@ public class ClassDef extends AST {
             methodDef.checkType(st);
             if (methodDef.getName().equals(name)) {
                 if (constructorDef != null) {
-                    throw new RuntimeException("Multiple constructors defined");
+                        throw new SemanticException("Multiple constructors defined in class");
                 } else {
                     constructorDef = methodDef;
                     ClassDef supClasDef = superClassDef;
                     while (supClasDef != null) {
                         if (supClasDef.getName().equals(name)) {
-                            throw new RuntimeException("Class " + name + " has the same name as its superclass");
+                            throw new SemanticException("Class " + name + " has the same name as its superclass");
                         }
                         supClasDef = supClasDef.getSuperClassDef();
                     }
@@ -135,11 +137,11 @@ public class ClassDef extends AST {
         if (superClassDef != null && superClassDef.getConstructorDef() != null) {
             if (!superClassDef.getConstructorDef().getParams().getParameters().isEmpty()) {
                 if (constructorDef == null) {
-                    throw new RuntimeException("Missing constructor for superclass in " + name);
+                    throw new SemanticException("Missing constructor for superclass in " + name);
                 } else {
                     List<AST> bodyStatements = constructorDef.getBody().getStatements();
                     if (bodyStatements == null || bodyStatements.isEmpty() || !(bodyStatements.get(0) instanceof SuperFunction)) {
-                        throw new RuntimeException("Missing constructor for superclass in " + name);
+                        throw new SemanticException("Missing constructor for superclass in " + name);
                     }
                 }
             }
@@ -164,7 +166,7 @@ public class ClassDef extends AST {
         for (VariableDef variableDef : variableDefs) {
             variableDef.checkType(st);
             if (superClassDef !=null && superClassDef.getFieldIndex(variableDef.getIdentifier()) != -1) {
-                throw new RuntimeException("Field " + variableDef.getIdentifier() + " is already defined in superclass!");
+                throw new SemanticException("Field " + variableDef.getIdentifier() + " is already defined in superclass!");
             }
         }
         st.endClassDef();

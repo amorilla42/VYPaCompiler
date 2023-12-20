@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 public class BinaryExpression extends Expression{
@@ -32,7 +33,7 @@ public class BinaryExpression extends Expression{
         String leftType = leftExp.getType();
         String rightType = rightExp.getType();
         if (leftType == null || rightType == null) {
-            throw new RuntimeException("Operand type is null " + leftType + operation.name() + rightType);
+            throw new SemanticTypeException("at least one type is null: " + leftType + " "+ operation.name() +" "+ rightType);
         }
         switch (operation) {
             case ADD:
@@ -43,13 +44,12 @@ public class BinaryExpression extends Expression{
             case SUB:
             case MUL:
             case DIV: {
-                if (INT_TYPE.equals(leftType)) {
-                    if (INT_TYPE.equals(rightType)) {
-                        type = INT_TYPE;
-                        break;
-                    }
+                if (INT_TYPE.equals(leftType) && INT_TYPE.equals(rightType)) {
+                    type = INT_TYPE;
+                    break;
                 }
-                throw new RuntimeException("Binary operation incompatible with provided types");
+                throw new SemanticTypeException("Type mismatch for operation " + operation.name() + ".Got Left type: " + leftType + ", Right type: " + rightType);
+
             }
             case EQ:
             case NEQ:
@@ -57,32 +57,29 @@ public class BinaryExpression extends Expression{
                     type = leftType;
                     break;
                 }
-                throw new RuntimeException("Comparing incompatible types");
+                throw new SemanticTypeException("Incompatible types for comparison in " + operation.name() + " operation. Left type: " + leftType + ", Right type: " + rightType);
+
             case LT:
             case LE:
             case GT:
             case GE:
-                if (INT_TYPE.equals(leftType)) {
-                    if (INT_TYPE.equals(rightType)) {
-                        type = BOOL_TYPE;
-                        break;
-                    }
-                } else if (STRING_TYPE.equals(leftType)) {
-                    if (STRING_TYPE.equals(rightType)) {
-                        type = BOOL_TYPE;
-                        break;
-                    }
+                if ((INT_TYPE.equals(leftType) && INT_TYPE.equals(rightType)) ||
+                        (STRING_TYPE.equals(leftType) && STRING_TYPE.equals(rightType))) {
+                    type = BOOL_TYPE;
+                    break;
+                } else {
+                    throw new SemanticTypeException("Non-numeric types in " + operation.name() + " operation.Got Left type: " + leftType + ", Right type: " + rightType);
+
                 }
-                throw new RuntimeException("Comparing non numeric types");
             case AND:
             case OR:
-                if (INT_TYPE.equals(leftType) || BOOL_TYPE.equals(leftType)) {
-                    if (INT_TYPE.equals(rightType) || BOOL_TYPE.equals(rightType)) {
-                        type = BOOL_TYPE;
-                        break;
-                    }
+                if ((INT_TYPE.equals(leftType) || BOOL_TYPE.equals(leftType)) &&
+                        (INT_TYPE.equals(rightType) || BOOL_TYPE.equals(rightType))) {
+                    type = BOOL_TYPE;
+                    break;
                 }
-                throw new RuntimeException("Binary operation on invalid types");
+                throw new SemanticTypeException("Invalid types for binary operation " + operation.name() + ".Got Left type: " + leftType + ", Right type: " + rightType);
+
         }
 
     }

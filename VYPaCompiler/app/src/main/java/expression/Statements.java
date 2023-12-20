@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SyntaxException;
 import tables.SymbolTable;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class Statements extends AST {
         for (AST ast : statements) {
             ast.checkType(st);
             if (returnFound) {
-                throw new RuntimeException("no statement after return allowed");
+                throw new SyntaxException("no statement after return allowed");
             }
             if (ast instanceof ReturnStatement) {
                 returnFound = true;

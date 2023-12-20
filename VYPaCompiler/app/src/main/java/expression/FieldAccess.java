@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 public class FieldAccess extends Expression{
@@ -28,7 +29,7 @@ public class FieldAccess extends Expression{
     public void checkType(SymbolTable st) {
         father.checkType(st);
         if (st.getClassDef(father.getType()) == null) {
-            throw new RuntimeException("Accessing field of a non object!");
+            throw new SemanticTypeException("Accessing field of a non-object.");
         }
         type = st.getFieldType(father.getType(), identifier);
 

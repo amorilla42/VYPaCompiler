@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticException;
 import tables.SymbolTable;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class Program extends AST{
             if (superClassName != null) {
                 ClassDef superClassDef = st.getClassDef(superClassName);
                 if (superClassDef == null) {
-                    throw new RuntimeException("Invalid superclass " + superClassName);
+                    throw new SemanticException("Invalid superclass " + superClassName);
                 }
                 classDef.setSuperClassDef(superClassDef);
             }
@@ -57,7 +58,7 @@ public class Program extends AST{
         }
         FunctionDef mainFunctionDef = st.getFunctionDef("main");
         if (mainFunctionDef == null || !mainFunctionDef.getParams().getParameters().isEmpty()) {
-            throw new RuntimeException("main function is missing");
+            throw new SemanticException("no main function");
         }
         globalVariableDefinitions.forEach(st::addGlobalDef);
         functionDefinitions.forEach(functionDef -> functionDef.checkType(st));

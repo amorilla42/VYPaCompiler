@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticException;
 import tables.SymbolTable;
 
 public class IdentifierExpression extends Expression {
@@ -25,10 +26,8 @@ public class IdentifierExpression extends Expression {
     public void checkType(SymbolTable st) {
         this.type = st.getType(identifier);
         if (type == null) {
-            throw new RuntimeException("Unknown type for variable " + identifier);
+            throw new SemanticException("Unknown type for variable " + identifier);
         }
 
     }
-
-
 }

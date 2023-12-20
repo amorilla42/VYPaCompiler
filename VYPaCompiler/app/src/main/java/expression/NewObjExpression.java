@@ -1,5 +1,7 @@
 package expression;
 
+import exceptions.SemanticException;
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 public class NewObjExpression extends Expression{
@@ -17,11 +19,11 @@ public class NewObjExpression extends Expression{
         params.checkType(st);
         classDef = st.getClassDef(className);
         if (classDef == null) {
-            throw new RuntimeException("Invalid class name");
+            throw new SemanticException("Invalid class name");
         }
         MethodDef constructor = classDef.getConstructorDef();
         if (!st.checkTypes(constructor.getParams(), params)) {
-            throw new RuntimeException("Wrong constructor parameters");
+            throw new SemanticTypeException("Wrong constructor parameters");
         }
 
     }

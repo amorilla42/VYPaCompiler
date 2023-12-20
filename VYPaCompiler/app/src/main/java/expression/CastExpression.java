@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 public class CastExpression extends Expression{
@@ -15,7 +16,7 @@ public class CastExpression extends Expression{
     public void checkType(SymbolTable st) {
         toBeCast.checkType(st);
         if (!st.isCastable(type, toBeCast.getType())) {
-            throw new RuntimeException("Cant cast " + toBeCast.getType() + " to " + type);
+            throw new SemanticTypeException("Cannot cast " + toBeCast.getType() + " to " + type);
         }
 
     }

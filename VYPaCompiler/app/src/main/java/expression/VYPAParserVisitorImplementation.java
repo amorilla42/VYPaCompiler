@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticTypeException;
 import parser.VYPALexer;
 import parser.VYPAParser;
 import parser.VYPAParserBaseVisitor;
@@ -130,7 +131,7 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         } else if (type == VYPALexer.LT) {
             opType = AST.BinaryOp.LT;
         } else {
-            throw new RuntimeException("Wrong binary operator");
+            throw new SemanticTypeException("Invalid comparison operator type.");
         }
         return new BinaryExpression(leftExp, rightExp, opType);
     }
@@ -147,7 +148,7 @@ public class VYPAParserVisitorImplementation extends VYPAParserBaseVisitor<AST> 
         } else if (type == VYPALexer.NEQ) {
             opType = AST.BinaryOp.NEQ;
         } else {
-            throw new RuntimeException("Wrong binary operator");
+            throw new SemanticTypeException("Invalid comparison operator type.");
         }
         return new BinaryExpression(leftExp, rightExp, opType);
     }

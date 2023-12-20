@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticException;
 import tables.SymbolTable;
 
 public class ThisExpression extends Expression{
@@ -19,7 +20,7 @@ public class ThisExpression extends Expression{
     public void checkType(SymbolTable st) {
         instance = st.getCurrentClassDefinition();
         if (instance == null) {
-            throw new RuntimeException("expression is outside class");
+            throw new SemanticException("This expression is not in a class context.");
         }
         type = instance.getName();
     }

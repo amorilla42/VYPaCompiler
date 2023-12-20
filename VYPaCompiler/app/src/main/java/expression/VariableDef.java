@@ -1,5 +1,6 @@
 package expression;
 
+import exceptions.SemanticTypeException;
 import tables.SymbolTable;
 
 public class VariableDef extends AST{
@@ -38,7 +39,7 @@ public class VariableDef extends AST{
         if (expr != null) {
             expr.checkType(st);
             if (!type.equals(expr.getType())) {
-                throw new RuntimeException("type:" +type + " is not " + expr.getType());
+                throw new SemanticTypeException("type:" +type + " is not " + expr.getType());
             }
         }
 
