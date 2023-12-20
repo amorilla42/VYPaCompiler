@@ -26,6 +26,16 @@ public class BinaryExpression extends Expression{
         this.operation = operation;
     }
 
+    /**
+     * This method checks the type of the binary expression.
+     * It checks the types of the left and right expressions and ensures they are compatible with the operation.
+     * Equality and inequality checks can be performed between any two types as long as they are the same.
+     * Less than, less than or equal to, greater than, and greater than or equal to operations are only allowed between two integers or two strings.
+     * And and Or operations are only allowed between two integers or two booleans.
+     *
+     * @param st The symbol table to use for type checking.
+     * @throws SemanticTypeException If the types of the left and right expressions are not compatible with the operation.
+     */
     @Override
     public void checkType(SymbolTable st) {
         leftExp.checkType(st);

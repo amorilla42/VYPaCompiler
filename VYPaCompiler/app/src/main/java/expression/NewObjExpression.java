@@ -14,6 +14,17 @@ public class NewObjExpression extends Expression{
         this.params = params;
     }
 
+    /**
+     * This method checks the type of the new object expression.
+     * It checks the types of the parameters and retrieves the class definition from the symbol table.
+     * If the class definition is null, it throws a semantic exception because the class name is invalid.
+     * It then retrieves the constructor definition from the class definition and checks the types of the constructor parameters.
+     * If the types of the constructor parameters do not match the types of the parameters, it throws a semantic type exception.
+     *
+     * @param st The symbol table to use for type checking.
+     * @throws SemanticException If the class name is invalid.
+     * @throws SemanticTypeException If the types of the constructor parameters do not match the types of the parameters.
+     */
     @Override
     public void checkType(SymbolTable st) {
         params.checkType(st);
@@ -25,7 +36,6 @@ public class NewObjExpression extends Expression{
         if (!st.checkTypes(constructor.getParams(), params)) {
             throw new SemanticTypeException("Wrong constructor parameters");
         }
-
     }
 
     @Override

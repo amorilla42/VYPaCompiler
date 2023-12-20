@@ -114,13 +114,22 @@ public class ClassDef extends AST {
     }
 
     @Override
+    /**
+     * This method checks the type of the class and its methods.
+     * It also checks for semantic errors like multiple constructors, superclass name conflicts, and missing constructors.
+     * If no constructor is defined, it creates an implicit super constructor.
+     * It also checks for field name conflicts with superclass.
+     *
+     * @param st The symbol table to use for type checking.
+     * @throws SemanticException If there are multiple constructors, superclass name conflicts, missing constructors, or field name conflicts with superclass.
+     */
     public void checkType(SymbolTable st) {
         st.startClassDef(this);
         for (MethodDef methodDef : methodDefs) {
             methodDef.checkType(st);
             if (methodDef.getName().equals(name)) {
                 if (constructorDef != null) {
-                        throw new SemanticException("Multiple constructors defined in class");
+                    throw new SemanticException("Multiple constructors defined in class");
                 } else {
                     constructorDef = methodDef;
                     ClassDef supClasDef = superClassDef;
@@ -146,7 +155,7 @@ public class ClassDef extends AST {
                 }
             }
         }
-        if (constructorDef == null) { // create implicit super constructor
+        if (constructorDef == null) { 
             SuperFunction superFunction = new SuperFunction(new ExpressionList(Collections.emptyList()));
             superFunction.setSuperClass(superClassDef);
             constructorDef = new MethodDef(AST.VOID_TYPE, name, new ParamDefList(Collections.emptyList()), new CodeBlock(Collections.singletonList(superFunction)));

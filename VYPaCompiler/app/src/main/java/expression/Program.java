@@ -31,6 +31,15 @@ public class Program extends AST{
         return globalVariableDefinitions;
     }
 
+    /**
+     * This method checks the type of the program.
+     * It adds class definitions to the symbol table, sets superclass definitions, and adds method definitions.
+     * It also adds function definitions to the symbol table and checks for the existence of a main function.
+     * Finally, it checks the types of class definitions, function definitions, and global variable definitions.
+     *
+     * @param st The symbol table to use for type checking.
+     * @throws SemanticException If the superclass is invalid or if there is no main function.
+     */
     @Override
     public void checkType(SymbolTable st) {
         classDefinitions.add(new ObjectClassDef());
@@ -61,10 +70,9 @@ public class Program extends AST{
             throw new SemanticException("no main function");
         }
         globalVariableDefinitions.forEach(st::addGlobalDef);
-        classDefinitions.forEach(classDef -> classDef.  checkType(st));
+        classDefinitions.forEach(classDef -> classDef.checkType(st));
         functionDefinitions.forEach(functionDef -> functionDef.checkType(st));
         globalVariableDefinitions.forEach(variableDef -> variableDef.checkType(st));
-
     }
 
 }
