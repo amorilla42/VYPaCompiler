@@ -1,5 +1,6 @@
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 public class Assing extends Expression{
@@ -22,5 +23,13 @@ public class Assing extends Expression{
     @Override
     public String getType() {
         return type;
+    }
+
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        //TODO: assing to a class attribute
+        if (this.leftSide instanceof IdentifierExpression){
+            cg.assingVariable((IdentifierExpression) this.leftSide,this.rightSide);
+        }
     }
 }

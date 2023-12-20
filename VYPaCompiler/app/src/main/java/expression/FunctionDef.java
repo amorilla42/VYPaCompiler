@@ -1,6 +1,9 @@
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
+
+import java.util.Objects;
 
 public class FunctionDef extends Expression{
     private String type;
@@ -39,4 +42,27 @@ public class FunctionDef extends Expression{
     public String getType() {
         return type;
     }
+
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg) {
+        cg.addLine("LABEL "+this.identifier);
+
+        //parameters definitions
+        this.params.generateCode(st,cg);
+        //Params are in the local adresses and stored in user register in reverse
+        // if N is the size of params, the first one is stored in ($SP-N-1)
+        // and the last parameter is in ($SP-2)
+
+        //definition of the body
+        body.getStatements().forEach(statement -> statement.generateCode(st,cg));
+
+        //restore the PC register if the function is void if not, it will be a return statement in the function
+        if (this.type.equals(VOID_TYPE))
+            cg.addLine("RETURN [$SP-1]");
+
+        //remove local definitions
+        cg.getAddrTable().clearLocalAdresses();
+    }
+
+
 }

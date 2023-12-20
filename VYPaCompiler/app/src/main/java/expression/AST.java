@@ -10,6 +10,8 @@ public abstract class AST {
     public static final String INT_TYPE = "int";
     public static final String BOOL_TYPE = "bool";
 
+    public static final String CONCAT_FUN_LABEL = "@Concat";
+
     public enum BinaryOp {
         ADD,
         SUB,

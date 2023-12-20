@@ -1,5 +1,6 @@
 package expression;
 
+import codeGenerator.CodeGenerator;
 import tables.SymbolTable;
 
 public class BinaryExpression extends Expression{
@@ -90,5 +91,67 @@ public class BinaryExpression extends Expression{
     @Override
     public String getType() {
         return type;
+    }
+
+    @Override
+    public void generateCode(SymbolTable st, CodeGenerator cg){
+        String left = cg.generateExpression(leftExp);
+        String right = cg.generateExpression(rightExp);
+
+        String operator = null;
+
+        switch (this.operation){
+            case ADD:
+                if(this.type.equals(STRING_TYPE)){
+                    //concatenation of strings
+                    int allocatedLocalVars = cg.getAddrTable().localVarsSize();
+                    int offsetSP = allocatedLocalVars + 3; // 3 is the size of the return address and the saved registers for the concat function
+                    cg.addLine("SET [$SP+" + (offsetSP-2) + "] " + left);
+                    cg.addLine("SET [$SP+" + (offsetSP-3) + "] " + right);
+                    cg.addLine("ADDI $SP $SP " + offsetSP); // move the stack pointer to the first parameter
+                    cg.addLine("CALL [$SP-1] " + CONCAT_FUN_LABEL );
+                    cg.addLine("SUBI $SP $SP " + offsetSP); // restore the stack pointer
+                    return;
+                }
+                operator = "ADDI";
+                break;
+            case SUB:
+                operator = "SUBI";
+                break;
+            case MUL:
+                operator = "MULI";
+                break;
+            case DIV:
+                operator = "DIVI";
+                break;
+            case EQ, NEQ:
+                operator = "EQ";
+                break;
+            case LT, GE:
+                operator = "LT";
+                break;
+            case LE,GT:
+                operator = "GT";
+                break;
+            case AND:
+                operator = "AND";
+                break;
+            case OR:
+                operator = "OR";
+                break;
+        }
+        if (this.operation == BinaryOp.EQ || this.operation == BinaryOp.NEQ
+                || this.operation == BinaryOp.LT || this.operation == BinaryOp.GT
+                || this.operation == BinaryOp.LE || this.operation == BinaryOp.GE ){
+            if (leftExp.getType().equals(INT_TYPE))
+                operator += "I";
+            else if (leftExp.getType().equals(STRING_TYPE))
+                operator += "S";
+        }
+        cg.addLine(operator + " $0 " + left + " " + right); //The result is stored in $0
+        if (this.operation == BinaryOp.NEQ || this.operation == BinaryOp.LE || this.operation == BinaryOp.GE ){
+            cg.addLine("NOT $0 $0");
+        }
+
     }
 }

@@ -33,6 +33,10 @@ public class AddressTable {
         return add;
     }
 
+    public int localVarsSize(){
+        return tempVarCounter + localAdresses.size();
+    }
+
     public Address addLocal(String id){
         Address add = new Address(Address.Type.STACK_REL,localAdresses.size());
         localAdresses.put(id,add);
@@ -43,6 +47,17 @@ public class AddressTable {
         localAdresses.clear();
     }
 
+    public void addParam(String id, Address add){
+        localAdresses.put(id,add);
+    }
+
+    //Temp variables are single use, that's why there is no need to store at localAdresses
+    public Address addTemp(){
+        return new Address(Address.Type.STACK_REL,this.localAdresses.size()+(this.tempVarCounter++));
+    }
+    public void clearTemps(){
+        this.tempVarCounter = 0;
+    }
 
 
 

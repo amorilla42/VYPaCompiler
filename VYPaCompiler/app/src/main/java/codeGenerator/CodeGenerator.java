@@ -1,5 +1,9 @@
 package codeGenerator;
 
+import expression.Expression;
+import expression.IdentifierExpression;
+import expression.IntLiteral;
+import expression.StringLiteral;
 import tables.SymbolTable;
 
 import java.util.ArrayList;
@@ -29,7 +33,26 @@ public class CodeGenerator {
         return this.targetCode;
     }
 
+    public void assingVariable(IdentifierExpression id, Expression expr){
+        String idType = id.getType();
+        String strExpr = generateExpression(expr);
 
+    }
+
+    public String generateExpression(Expression expr){
+        if (expr instanceof IntLiteral)
+            return String.valueOf(((IntLiteral)expr).getValue());
+        else if (expr instanceof StringLiteral)
+            return ((StringLiteral)expr).getValue();
+        else if (expr instanceof IdentifierExpression)
+            return this.at.getAddress(((IdentifierExpression)expr).getIdentifier()).toCode();
+        else {
+            expr.generateCode(st,this);
+            Address add = this.at.addTemp();
+            addLine("SET "+add.toCode()+" $0");
+            return add.toCode();
+        }
+    }
 
 
 
