@@ -141,6 +141,9 @@ public class SymbolTable {
         if (data instanceof FunctionData) {
             return ((FunctionData)data).functionDef;
         }
+        if(Objects.equals(name, "main")){
+            throw new SemanticException("no main function");
+        }
         throw new SemanticException(name + " is not a function");
     }
 

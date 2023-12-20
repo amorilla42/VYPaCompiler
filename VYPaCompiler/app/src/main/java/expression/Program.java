@@ -70,8 +70,8 @@ public class Program extends AST{
             st.addFunctionDef(functionDef);
         }
         FunctionDef mainFunctionDef = st.getFunctionDef("main");
-        if (mainFunctionDef == null || !mainFunctionDef.getParams().getParameters().isEmpty()) {
-            throw new SemanticException("no main function");
+        if (!mainFunctionDef.getParams().getParameters().isEmpty()) {
+            throw new SemanticException("main must have no arguments");
         }
         globalVariableDefinitions.forEach(st::addGlobalDef);
         classDefinitions.forEach(classDef -> classDef.checkType(st));
