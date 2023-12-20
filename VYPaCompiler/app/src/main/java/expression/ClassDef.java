@@ -16,7 +16,7 @@ public class ClassDef extends AST {
     private String superClass;
     private List<VariableDef> variableDefs;
     private List<MethodDef> methodDefs;
-    private MethodDef constructorDef = null;
+    protected MethodDef constructorDef = null;
     public ClassDef getSuperClassDef() {
         return superClassDef;
     }

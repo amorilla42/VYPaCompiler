@@ -61,8 +61,8 @@ public class Program extends AST{
             throw new SemanticException("no main function");
         }
         globalVariableDefinitions.forEach(st::addGlobalDef);
-        functionDefinitions.forEach(functionDef -> functionDef.checkType(st));
         classDefinitions.forEach(classDef -> classDef.  checkType(st));
+        functionDefinitions.forEach(functionDef -> functionDef.checkType(st));
         globalVariableDefinitions.forEach(variableDef -> variableDef.checkType(st));
 
     }
